@@ -1,0 +1,18 @@
+.scrolling-wrapper {
+  margin: 1rem;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  mat-card {
+    display: inline-block;
+    img {
+      max-width: 11rem;
+      height: auto;
+      padding: 0.25rem;
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+    }
+  }
+}

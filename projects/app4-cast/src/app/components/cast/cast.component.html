@@ -1,0 +1,16 @@
+<div class="scrolling-wrapper">
+  <mat-card class="card" *ngFor="let actor of cast" class="example-card">
+    <img
+      class="example-card"
+      [src]="actor.profile_path! | poster: 'w500'"
+      [alt]="actor.name"
+      class="img-thumbnail"
+    />
+    <mat-card-content>
+      <p>
+        <strong>{{ actor.name | slice: 0:30 }}</strong>
+      </p>
+      <p>{{ actor.character | slice: 0:30 }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

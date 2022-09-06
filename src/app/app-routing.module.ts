@@ -1,3 +1,4 @@
+import { loadRemoteModule } from '@angular-architects/module-federation';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
@@ -7,13 +8,21 @@ const routes: Routes = [
   {
     path: 'detail',
     loadChildren: () =>
-      import('./details/details.module').then((m) => m.DetailsModule),
+      loadRemoteModule({
+        type: 'manifest',
+        remoteName: 'app2-details',
+        exposedModule: './Module',
+      }).then((m) => m.DetailsModule),
   },
   // { path: 'search/:query', component: SearchComponent },
   {
     path: 'favorites',
     loadChildren: () =>
-      import('./favorites/favorites.module').then((m) => m.FavoritesModule),
+      loadRemoteModule({
+        type: 'manifest',
+        remoteName: 'app3-favorites',
+        exposedModule: './Module',
+      }).then((m) => m.FavoritesModule),
   },
   { path: '**', component: DashboardComponent },
 ];

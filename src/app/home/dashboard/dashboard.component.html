@@ -1,4 +1,5 @@
 <app-movies-grid
   *ngIf="movies$ | async as movies"
   [movies]="movies"
+  [columns]="2"
 ></app-movies-grid>

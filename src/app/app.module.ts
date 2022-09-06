@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -13,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { ToolbarComponent } from './home/toolbar/toolbar.component';
-import { SharedModule } from './shared/shared.module';
+import { SharedLibModule } from 'shared-lib';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, ToolbarComponent],
@@ -23,7 +22,7 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     RouterModule,
-    SharedModule,
+    SharedLibModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,

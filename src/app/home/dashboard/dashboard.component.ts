@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { MoviesService } from '../../services/movies.service';
-import { Movie } from '../../models/now-playing';
+import { MoviesService, Movie } from 'shared-lib';
 
 @Component({
   selector: 'app-dashboard',

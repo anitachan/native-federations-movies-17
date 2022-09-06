@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
             "outputPath": "dist/micro-federation-example",
             "index": "src/index.html",
@@ -28,7 +28,121 @@
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.scss"
             ],
+            "scripts": [],
+            "extraWebpackConfig": "webpack.config.js",
+            "commonChunk": false
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                },
+                {
+                  "type": "bundle",
+                  "name": "main",
+                  "maximumWarning": "350kb",
+                  "maximumError": "500kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "webpack.prod.config.js"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "micro-federation-example:build:production",
+              "extraWebpackConfig": "webpack.prod.config.js"
+            },
+            "development": {
+              "browserTarget": "micro-federation-example:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4200,
+            "publicHost": "http://localhost:4200",
+            "extraWebpackConfig": "webpack.config.js"
+          }
+        },
+        "extract-i18n": {
+          "builder": "ngx-build-plus:extract-i18n",
+          "options": {
+            "browserTarget": "micro-federation-example:build",
+            "extraWebpackConfig": "webpack.config.js"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "src/styles.scss"
+            ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "app2-details": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/app2-details",
+      "sourceRoot": "projects/app2-details/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "options": {
+            "outputPath": "dist/app2-details",
+            "index": "projects/app2-details/src/index.html",
+            "main": "projects/app2-details/src/main.ts",
+            "polyfills": "projects/app2-details/src/polyfills.ts",
+            "tsConfig": "projects/app2-details/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app2-details/src/favicon.ico",
+              "projects/app2-details/src/assets"
+            ],
+            "styles": ["projects/app2-details/src/styles.scss"],
+            "scripts": [],
+            "extraWebpackConfig": "projects/app2-details/webpack.config.js",
+            "commonChunk": false
           },
           "configurations": {
             "production": {
@@ -46,11 +160,12 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/app2-details/src/environments/environment.ts",
+                  "with": "projects/app2-details/src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "extraWebpackConfig": "projects/app2-details/webpack.prod.config.js"
             },
             "development": {
               "buildOptimizer": false,
@@ -64,36 +179,286 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "micro-federation-example:build:production"
+              "browserTarget": "app2-details:build:production",
+              "extraWebpackConfig": "projects/app2-details/webpack.prod.config.js"
             },
             "development": {
-              "browserTarget": "micro-federation-example:build:development"
+              "browserTarget": "app2-details:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4201,
+            "publicHost": "http://localhost:4201",
+            "extraWebpackConfig": "projects/app2-details/webpack.config.js"
+          }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "micro-federation-example:build"
+            "browserTarget": "app2-details:build",
+            "extraWebpackConfig": "projects/app2-details/webpack.config.js"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "main": "projects/app2-details/src/test.ts",
+            "polyfills": "projects/app2-details/src/polyfills.ts",
+            "tsConfig": "projects/app2-details/tsconfig.spec.json",
+            "karmaConfig": "projects/app2-details/karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "src/styles.scss"
+            "assets": [
+              "projects/app2-details/src/favicon.ico",
+              "projects/app2-details/src/assets"
             ],
+            "styles": ["projects/app2-details/src/styles.scss"],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "app3-favorites": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/app3-favorites",
+      "sourceRoot": "projects/app3-favorites/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "options": {
+            "outputPath": "dist/app3-favorites",
+            "index": "projects/app3-favorites/src/index.html",
+            "main": "projects/app3-favorites/src/main.ts",
+            "polyfills": "projects/app3-favorites/src/polyfills.ts",
+            "tsConfig": "projects/app3-favorites/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app3-favorites/src/favicon.ico",
+              "projects/app3-favorites/src/assets"
+            ],
+            "styles": ["projects/app3-favorites/src/styles.scss"],
+            "scripts": [],
+            "extraWebpackConfig": "projects/app3-favorites/webpack.config.js",
+            "commonChunk": false
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app3-favorites/src/environments/environment.ts",
+                  "with": "projects/app3-favorites/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "projects/app3-favorites/webpack.prod.config.js"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app3-favorites:build:production",
+              "extraWebpackConfig": "projects/app3-favorites/webpack.prod.config.js"
+            },
+            "development": {
+              "browserTarget": "app3-favorites:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4202,
+            "publicHost": "http://localhost:4202",
+            "extraWebpackConfig": "projects/app3-favorites/webpack.config.js"
+          }
+        },
+        "extract-i18n": {
+          "builder": "ngx-build-plus:extract-i18n",
+          "options": {
+            "browserTarget": "app3-favorites:build",
+            "extraWebpackConfig": "projects/app3-favorites/webpack.config.js"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app3-favorites/src/test.ts",
+            "polyfills": "projects/app3-favorites/src/polyfills.ts",
+            "tsConfig": "projects/app3-favorites/tsconfig.spec.json",
+            "karmaConfig": "projects/app3-favorites/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app3-favorites/src/favicon.ico",
+              "projects/app3-favorites/src/assets"
+            ],
+            "styles": ["projects/app3-favorites/src/styles.scss"],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "shared-lib": {
+      "projectType": "library",
+      "root": "projects/shared-lib",
+      "sourceRoot": "projects/shared-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/shared-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/shared-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/shared-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/shared-lib/src/test.ts",
+            "tsConfig": "projects/shared-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/shared-lib/karma.conf.js"
+          }
+        }
+      }
+    },
+    "app4-cast": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/app4-cast",
+      "sourceRoot": "projects/app4-cast/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "options": {
+            "outputPath": "dist/app4-cast",
+            "index": "projects/app4-cast/src/index.html",
+            "main": "projects/app4-cast/src/main.ts",
+            "polyfills": "projects/app4-cast/src/polyfills.ts",
+            "tsConfig": "projects/app4-cast/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app4-cast/src/favicon.ico",
+              "projects/app4-cast/src/assets"
+            ],
+            "styles": ["projects/app4-cast/src/styles.scss"],
+            "scripts": [],
+            "extraWebpackConfig": "projects/app4-cast/webpack.config.js",
+            "commonChunk": false
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/app4-cast/src/environments/environment.ts",
+                  "with": "projects/app4-cast/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "projects/app4-cast/webpack.prod.config.js"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "app4-cast:build:production",
+              "extraWebpackConfig": "projects/app4-cast/webpack.prod.config.js"
+            },
+            "development": {
+              "browserTarget": "app4-cast:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4203,
+            "publicHost": "http://localhost:4203",
+            "extraWebpackConfig": "projects/app4-cast/webpack.config.js"
+          }
+        },
+        "extract-i18n": {
+          "builder": "ngx-build-plus:extract-i18n",
+          "options": {
+            "browserTarget": "app4-cast:build",
+            "extraWebpackConfig": "projects/app4-cast/webpack.config.js"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/app4-cast/src/test.ts",
+            "polyfills": "projects/app4-cast/src/polyfills.ts",
+            "tsConfig": "projects/app4-cast/tsconfig.spec.json",
+            "karmaConfig": "projects/app4-cast/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/app4-cast/src/favicon.ico",
+              "projects/app4-cast/src/assets"
+            ],
+            "styles": ["projects/app4-cast/src/styles.scss"],
             "scripts": []
           }
         }

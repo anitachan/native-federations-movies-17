@@ -18,12 +18,13 @@
     <app-accordion
       [movie]="movieDetail.movie"
       [genres]="movieDetail.genres"
+      [selectedActor]="selectedActor"
     ></app-accordion>
   </div>
   <div>
     <app-mfe-cast-components
       [cast]="movieDetail.cast"
+      (actor)="getSelectActor($event)"
     ></app-mfe-cast-components>
-    <!--<app-videos *ngIf="videosTmdb.length > 0" [videos]="videosTmdb"></app-videos> -->
   </div>
 </div>

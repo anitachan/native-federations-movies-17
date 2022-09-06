@@ -1,5 +1,10 @@
 <div class="scrolling-wrapper">
-  <mat-card class="card" *ngFor="let actor of cast" class="example-card">
+  <mat-card
+    class="card"
+    *ngFor="let actor of cast"
+    class="example-card"
+    (click)="getActor(actor.name)"
+  >
     <img
       class="example-card"
       [src]="actor.profile_path! | poster: 'w500'"

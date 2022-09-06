@@ -20,6 +20,7 @@ export class MovieDetailComponent implements OnInit {
 
   movieId: string;
   favorite: boolean = false;
+  selectedActor: string = '';
 
   constructor(
     private moviesService: MoviesService,
@@ -62,6 +63,10 @@ export class MovieDetailComponent implements OnInit {
     }
     localStorage.setItem('favorites', JSON.stringify(newSelectedFavorites));
     this.favorite = !this.favorite;
+  }
+
+  getSelectActor(actor: string) {
+    this.selectedActor = actor;
   }
 
   private getFavorites() {

@@ -9,6 +9,7 @@ import { MovieDetail, Genre } from 'shared-lib';
 export class AccordionComponent implements OnInit {
   @Input() movie: MovieDetail;
   @Input() genres: Genre[];
+  @Input() selectedActor: string = 'N/A';
 
   rating: number = 3;
   starCount: number = 10;
@@ -18,7 +19,6 @@ export class AccordionComponent implements OnInit {
   ngOnInit(): void {}
 
   onRatingChanged(rating: number) {
-    console.log(rating);
     this.rating = rating;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Cast } from 'shared-lib';
 
 @Component({
@@ -8,10 +8,13 @@ import { Cast } from 'shared-lib';
 })
 export class CastComponent implements OnInit {
   @Input() cast: Cast[];
+  @Output() actor: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.cast);
+  ngOnInit(): void {}
+
+  getActor(actor: string) {
+    this.actor.emit(actor);
   }
 }

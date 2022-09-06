@@ -45,4 +45,11 @@
       [showVotes]="true"
     ></app-star-rating>
   </mat-expansion-panel>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title> Selected Actor </mat-panel-title>
+      <mat-panel-description> </mat-panel-description>
+    </mat-expansion-panel-header>
+    {{ selectedActor }}
+  </mat-expansion-panel>
 </mat-accordion>

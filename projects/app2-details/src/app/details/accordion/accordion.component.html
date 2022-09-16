@@ -1,21 +1,23 @@
 <mat-accordion [multi]="true" class="example-headers-align">
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
-      <mat-panel-title> Synopsis </mat-panel-title>
+      <mat-panel-title>
+        <span i18n>Synopsis</span>
+      </mat-panel-title>
       <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
     {{ movie.overview }}
   </mat-expansion-panel>
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
-      <mat-panel-title> Budget </mat-panel-title>
+      <mat-panel-title i18n> Budget </mat-panel-title>
       <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
     $ {{ movie.budget }}
   </mat-expansion-panel>
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
-      <mat-panel-title> Genres </mat-panel-title>
+      <mat-panel-title i18n> Genres </mat-panel-title>
       <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-chip-list aria-label="Fish selection">
@@ -24,7 +26,7 @@
   </mat-expansion-panel>
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
-      <mat-panel-title> Homepage </mat-panel-title>
+      <mat-panel-title i18n> Homepage </mat-panel-title>
       <mat-panel-description>
         <mat-icon>language</mat-icon>
         <a mat-button [href]="movie.homepage" target="_blank">{{
@@ -35,7 +37,7 @@
   </mat-expansion-panel>
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
-      <mat-panel-title> Rating </mat-panel-title>
+      <mat-panel-title i18n> Rating </mat-panel-title>
       <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
     <app-star-rating
@@ -47,7 +49,7 @@
   </mat-expansion-panel>
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
-      <mat-panel-title> Selected Actor </mat-panel-title>
+      <mat-panel-title i18n> Selected Actor </mat-panel-title>
       <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
     {{ selectedActor }}

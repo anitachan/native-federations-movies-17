@@ -1,4 +1,6 @@
 <app-movies-grid
+  i18n-buttonText
+  buttonText="See More"
   *ngIf="movies$ | async as movies"
   [movies]="movies"
   [columns]="2"

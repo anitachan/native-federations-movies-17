@@ -4,6 +4,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "micro-federation-example": {
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "es-EC": "src/locale/messages.es.json"
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,6 +23,7 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
+            "localize": ["es-EC"],
             "outputPath": "dist/micro-federation-example",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -116,6 +123,12 @@
       }
     },
     "app2-details": {
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "es-EC": "projects/app2-details/src/locale/messages.es.json"
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -129,6 +142,7 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
+            "localize": ["es-EC"],
             "outputPath": "dist/app2-details",
             "index": "projects/app2-details/src/index.html",
             "main": "projects/app2-details/src/main.ts",
@@ -222,6 +236,12 @@
       }
     },
     "app3-favorites": {
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "es-EC": "projects/app3-favorites/src/locale/messages.es.json"
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -235,6 +255,7 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
+            "localize": ["es-EC"],
             "outputPath": "dist/app3-favorites",
             "index": "projects/app3-favorites/src/index.html",
             "main": "projects/app3-favorites/src/main.ts",

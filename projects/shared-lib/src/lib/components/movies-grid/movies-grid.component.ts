@@ -9,6 +9,7 @@ import { Movie } from '../../models/now-playing.interface';
 export class MoviesGridComponent implements OnInit {
   @Input() movies: Movie[];
   @Input() columns: number;
+  @Input() buttonText: string;
 
   constructor() {}
 

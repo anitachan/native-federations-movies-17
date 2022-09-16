@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { Cast, Credits } from './models/credits.interface';
@@ -16,12 +16,16 @@ export class MoviesService {
   private tmdbUrl = 'https://api.themoviedb.org/3/';
   private tmbdApiKey = '65df35e6319938218e94a8b2587bd921';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(LOCALE_ID) public locale: string
+  ) {}
 
   get params() {
     return {
       api_key: this.tmbdApiKey,
       page: this.page.toString(),
+      language: this.locale,
     };
   }
 

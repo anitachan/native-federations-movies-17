@@ -8,6 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:WatchAll": "jest --watchAll",
+    "test:app2-details": "jest --coverage --rootDir='projects/app2-details'",
+    "test:app3-favorites": "jest --coverage --rootDir='projects/app3-favorites'",
     "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js",
     "build:lib": "ng build shared-lib"
   },

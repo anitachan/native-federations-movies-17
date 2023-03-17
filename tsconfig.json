@@ -18,7 +18,7 @@
     "target": "es2020",
     "paths": {
       "shared-lib": [
-        "dist/shared-lib"
+        "projects/shared-lib/src/public-api.ts"
       ]
     },
     "module": "es2020",

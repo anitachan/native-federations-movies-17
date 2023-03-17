@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { MockComponent } from 'ng-mocks';
+import { ToolbarComponent } from './home/toolbar/toolbar.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -9,7 +11,8 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        MockComponent(ToolbarComponent)
       ],
     }).compileComponents();
   });
@@ -20,16 +23,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'micro-federation-example'`, () => {
+  it(`should have as title 'host'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('micro-federation-example');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('micro-federation-example app is running!');
+    expect(app.title).toEqual('host');
   });
 });

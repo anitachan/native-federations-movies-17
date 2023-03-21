@@ -42,7 +42,7 @@ export class MovieDetailComponent implements OnInit {
     }).pipe(
       map(({ movie, cast, videos }) => ({
         movie,
-        cast: cast.filter((actor) => actor.profile_path !== null),
+        cast: cast.filter((actor) => actor.profile_path),
         videos: videos.results,
         genres: movie.genres,
       }))

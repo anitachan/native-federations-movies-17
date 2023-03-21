@@ -7,5 +7,8 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
     prefix: "<rootDir>/../../",
   }),
-  testEnvironment: "jsdom"
+  testEnvironment: "jsdom",
+  transformIgnorePatterns: [
+    "<rootDir>/node_modules/(?!@angular-architects/module-federation)"
+  ]
 };

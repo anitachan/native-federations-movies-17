@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService, Movie, MovieDetail } from 'shared-lib';
-import { forkJoin, map, Observable } from 'rxjs';
+import { forkJoin, map, Observable, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-favorites',
@@ -28,7 +28,7 @@ export class FavoritesComponent implements OnInit {
     });
 
     this.favorites$ = forkJoin(observable).pipe(
-      map((result: MovieDetail[]) => this.addFavorites(result))
+      map((result: MovieDetail[]) => this.addFavorites(result)),
     );
   }
 

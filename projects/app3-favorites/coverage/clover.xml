@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1679071042361" clover="3.2.0">
-  <project timestamp="1679071042361" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1679411694412" clover="3.2.0">
+  <project timestamp="1679411694412" name="All files">
+    <metrics statements="21" coveredstatements="21" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8" elements="31" coveredelements="31" complexity="0" loc="21" ncloc="21" packages="2" files="2" classes="2"/>
+    <package name="app">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="app.component.ts" path="/Users/analuciachavezhidalgo/Documents/Anita/mfe-angular-federation/projects/app3-favorites/src/app/app.component.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.favorites.favorites">
+      <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
+      <file name="favorites.component.ts" path="/Users/analuciachavezhidalgo/Documents/Anita/mfe-angular-federation/projects/app3-favorites/src/app/favorites/favorites/favorites.component.ts">
+        <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="22" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="4" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>

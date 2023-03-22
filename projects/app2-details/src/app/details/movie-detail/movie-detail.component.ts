@@ -22,10 +22,7 @@ export class MovieDetailComponent implements OnInit {
   favorite: boolean = false;
   selectedActor: string = '';
 
-  constructor(
-    private moviesService: MoviesService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private moviesService: MoviesService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.movieId = this.activatedRoute.snapshot.paramMap.get('id')!;
@@ -42,7 +39,7 @@ export class MovieDetailComponent implements OnInit {
     }).pipe(
       map(({ movie, cast, videos }) => ({
         movie,
-        cast: cast.filter((actor) => actor.profile_path),
+        cast: cast.filter(actor => actor.profile_path),
         videos: videos.results,
         genres: movie.genres,
       }))
@@ -54,9 +51,7 @@ export class MovieDetailComponent implements OnInit {
 
     let newSelectedFavorites: { id: string }[] = [];
     if (movieSelected) {
-      newSelectedFavorites = selectedFavorites.filter(
-        (favorite: { id: string }) => favorite.id !== this.movieId
-      );
+      newSelectedFavorites = selectedFavorites.filter((favorite: { id: string }) => favorite.id !== this.movieId);
     } else {
       selectedFavorites.push({ id: this.movieId });
       newSelectedFavorites = selectedFavorites;
@@ -70,11 +65,8 @@ export class MovieDetailComponent implements OnInit {
   }
 
   private getFavorites() {
-    const selectedFavorites =
-      JSON.parse(localStorage.getItem('favorites')!) || [];
-    const movieSelected = selectedFavorites.find(
-      (favorite: { id: string }) => favorite.id === this.movieId
-    );
+    const selectedFavorites = JSON.parse(localStorage.getItem('favorites')!) || [];
+    const movieSelected = selectedFavorites.find((favorite: { id: string }) => favorite.id === this.movieId);
     return { selectedFavorites, movieSelected };
   }
 }

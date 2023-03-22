@@ -1,14 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
-import { MockComponents, MockPipe, ngMocks, MockProvider, MockModule } from 'ng-mocks';
+import { MockComponents, MockModule, MockPipe, ngMocks } from 'ng-mocks';
 import { of } from 'rxjs';
 import { MoviesService, PosterPipe } from 'shared-lib';
 import { AccordionComponent } from '../accordion/accordion.component';
 import { MfeCastComponentsComponent } from '../mfe-cast-components/mfe-cast-components.component';
 import { MovieDetailComponent } from './movie-detail.component';
-import { MatIconModule } from '@angular/material/icon';
-import { EventEmitter } from '@angular/core';
 
 describe('MovieDetailComponent', () => {
   let component: MovieDetailComponent;

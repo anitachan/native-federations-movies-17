@@ -1,16 +1,6 @@
 import { loadRemoteModule } from '@angular-architects/module-federation';
-import {
-  Component,
-  ComponentRef,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
-import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import { Component, ComponentRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Cast } from 'shared-lib';
 
 @Component({
@@ -45,12 +35,9 @@ export class MfeCastComponentsComponent implements OnInit, OnDestroy {
       exposedModule: './Component',
     });
 
-    const ref: ComponentRef<{ cast: Cast[]; actor: Observable<string> }> =
-      this.viewContainer.createComponent(m.CastComponent);
+    const ref: ComponentRef<{ cast: Cast[]; actor: Observable<string> }> = this.viewContainer.createComponent(m.CastComponent);
     const compInstance = ref.instance;
     compInstance.cast = this.cast;
-    compInstance.actor
-      .pipe(takeUntil(this.stop$))
-      .subscribe((value) => this.actor.emit(value));
+    compInstance.actor.pipe(takeUntil(this.stop$)).subscribe(value => this.actor.emit(value));
   }
 }

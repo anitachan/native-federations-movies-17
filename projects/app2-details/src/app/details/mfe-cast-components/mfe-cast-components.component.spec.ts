@@ -28,12 +28,13 @@ describe('MfeCastComponentsComponent', () => {
   });
 
   it('should call remote component', async () => {
+    const componentRef = {
+      instance: { actor: of('Name') },
+      destroy: jest.fn(),
+    };
     const spy = jest.spyOn(component.viewContainer, 'createComponent').mockImplementation(
       jest.fn(() => {
-        return {
-          instance: { actor: of('Name') },
-          destroy: jest.fn(),
-        } as any as ComponentRef<{ cast: Cast[]; actor: Observable<string> }>;
+        return componentRef as any as ComponentRef<{ cast: Cast[]; actor: Observable<string> }>;
       })
     );
     await component.load();
@@ -43,6 +44,7 @@ describe('MfeCastComponentsComponent', () => {
       remoteEntry: 'http://localhost:4203/remoteEntry.js',
       exposedModule: './Component',
     });
+
     expect(spy).toHaveBeenCalled();
   });
 });

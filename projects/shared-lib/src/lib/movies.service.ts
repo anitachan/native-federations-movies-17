@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { Cast, Credits } from './models/credits.interface';
-import { MovieDetail, Genres } from './models/movie-detail.interface';
+import { MovieDetail } from './models/movie-detail.interface';
 import { MovieVideos } from './models/movie-videos.interface';
 import { NowPlaying } from './models/now-playing.interface';
 
@@ -35,10 +35,10 @@ export class MoviesService {
     return this.httpClient.get<MovieDetail>(url, { params: this.params });
   }
 
-  getGenreMovies(): Observable<Genres> {
-    const url: string = `${this.tmdbUrl}genre/movie/list`;
-    return this.httpClient.get<Genres>(url, { params: this.params });
-  }
+  // getGenreMovies(): Observable<Genres> {
+  //   const url: string = `${this.tmdbUrl}genre/movie/list`;
+  //   return this.httpClient.get<Genres>(url, { params: this.params });
+  // }
 
   getVideoMovies(movieId: string): Observable<MovieVideos> {
     const url: string = `${this.tmdbUrl}movie/${movieId}/videos`;
@@ -47,8 +47,6 @@ export class MoviesService {
 
   getCastMovie(movieId: string): Observable<Cast[]> {
     const url: string = `${this.tmdbUrl}movie/${movieId}/credits`;
-    return this.httpClient
-      .get<Credits>(url, { params: this.params })
-      .pipe(map((resp) => resp.cast));
+    return this.httpClient.get<Credits>(url, { params: this.params }).pipe(map(resp => resp.cast));
   }
 }

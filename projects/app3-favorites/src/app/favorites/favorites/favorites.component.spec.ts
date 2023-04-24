@@ -3,8 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MockComponent, ngMocks } from 'ng-mocks';
 import { of } from 'rxjs';
-import { MoviesGridComponent, MoviesService } from 'shared-lib';
+import { MoviesGridComponent } from 'shared-lib';
 import { FavoritesComponent } from './favorites.component';
+import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
 
 describe('FavoritesComponent', () => {
   let component: FavoritesComponent;
@@ -78,8 +79,7 @@ describe('FavoritesComponent', () => {
       },
     ],
     status: 'Released',
-    tagline:
-      'To enter the mind of a killer she must challenge the mind of a madman.',
+    tagline: 'To enter the mind of a killer she must challenge the mind of a madman.',
     title: 'The Silence of the Lambs',
     video: false,
     vote_average: 8.3,
@@ -95,14 +95,14 @@ describe('FavoritesComponent', () => {
     backdrop_path: movie.backdrop_path,
   };
 
-  const mockMoviesService = {
+  const mockCustomMoviesService = {
     getMovie: jest.fn(() => of(movie)),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [FavoritesComponent, MockComponent(MoviesGridComponent)],
-      providers: [{ provide: MoviesService, useValue: mockMoviesService }],
+      providers: [{ provide: CustomMoviesService, useValue: mockCustomMoviesService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FavoritesComponent);
@@ -115,46 +115,29 @@ describe('FavoritesComponent', () => {
   });
 
   it('should return an empty array when does not have favorites', async () => {
-    const mockMoviesGridComponent = fixture.debugElement.query(
-      By.css('app-movies-grid')
-    );
+    const mockMoviesGridComponent = fixture.debugElement.query(By.css('app-movies-grid'));
 
-    jest
-      .spyOn(Storage.prototype, 'getItem')
-      .mockReturnValue(JSON.stringify(''));
+    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(JSON.stringify(''));
 
     expect(mockMoviesGridComponent).toBeFalsy();
   });
 
   it('should call 3 favorites movies', () => {
-    const favoriteMovies = [
-      { id: 'ABC123' },
-      { id: 'DEF123' },
-      { id: 'GHI123' },
-    ];
+    const favoriteMovies = [{ id: 'ABC123' }, { id: 'DEF123' }, { id: 'GHI123' }];
 
-    jest
-      .spyOn(Storage.prototype, 'getItem')
-      .mockReturnValue(JSON.stringify(favoriteMovies));
+    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(JSON.stringify(favoriteMovies));
 
     component.getFavoritesMovies();
     fixture.detectChanges();
 
-    const mockMoviesGridComponent =
-      ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
+    const mockMoviesGridComponent = ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
 
-    favoriteMovies.forEach((movie) => {
-      expect(mockMoviesService.getMovie).toHaveBeenCalledWith(movie.id);
+    favoriteMovies.forEach(movie => {
+      expect(mockCustomMoviesService.getMovie).toHaveBeenCalledWith(movie.id);
     });
 
-    expect(mockMoviesService.getMovie).toHaveBeenCalledTimes(
-      favoriteMovies.length
-    );
-    expect(mockMoviesGridComponent.movies).toEqual([
-      mapperMovie,
-      mapperMovie,
-      mapperMovie,
-    ]);
+    expect(mockCustomMoviesService.getMovie).toHaveBeenCalledTimes(favoriteMovies.length);
+    expect(mockMoviesGridComponent.movies).toEqual([mapperMovie, mapperMovie, mapperMovie]);
     expect(mockMoviesGridComponent.columns).toEqual(3);
   });
 });

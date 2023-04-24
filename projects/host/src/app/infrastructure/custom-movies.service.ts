@@ -26,16 +26,20 @@ export class CustomMoviesService extends MoviesGateway {
     const url: string = `${this.tmdbUrl}movie/now_playing`;
     return this.httpClient.get<NowPlaying>(url, { params: this.params });
   }
-  override getMovie(): Observable<MovieDetail> {
+
+  getMovie(movieId: string): Observable<MovieDetail> {
     throw new Error('Method not implemented.');
   }
-  override getGenreMovies(): Observable<Genres> {
+
+  getGenreMovies(): Observable<Genres> {
     throw new Error('Method not implemented.');
   }
-  override getVideoMovie(): Observable<MovieVideos> {
+
+  getVideoMovie(movieId: string): Observable<MovieVideos> {
     throw new Error('Method not implemented.');
   }
-  override getCastMovie(): Observable<Cast[]> {
+
+  getCastMovie(movieId: string): Observable<Cast[]> {
     throw new Error('Method not implemented.');
   }
 }

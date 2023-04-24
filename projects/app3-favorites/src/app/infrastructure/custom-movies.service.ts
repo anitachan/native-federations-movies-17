@@ -15,6 +15,7 @@ export class CustomMoviesService extends MoviesGateway {
   constructor(private httpClient: HttpClient) {
     super(httpClient);
   }
+
   get params() {
     return {
       api_key: this.tmbdApiKey,
@@ -25,6 +26,7 @@ export class CustomMoviesService extends MoviesGateway {
   getNowPlayingMovies(): Observable<NowPlaying> {
     throw new Error('Method not implemented.');
   }
+
   getMovie(movieId: string): Observable<MovieDetail> {
     const url: string = `${this.tmdbUrl}movie/${movieId}`;
     return this.httpClient.get<MovieDetail>(url, { params: this.params });

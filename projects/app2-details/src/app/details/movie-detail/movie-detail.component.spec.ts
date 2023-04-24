@@ -4,10 +4,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { MockComponents, MockModule, MockPipe, ngMocks } from 'ng-mocks';
 import { of } from 'rxjs';
-import { MoviesService, PosterPipe } from 'shared-lib';
+import { PosterPipe } from 'shared-lib';
 import { AccordionComponent } from '../accordion/accordion.component';
 import { MfeCastComponentsComponent } from '../mfe-cast-components/mfe-cast-components.component';
 import { MovieDetailComponent } from './movie-detail.component';
+import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
 
 describe('MovieDetailComponent', () => {
   let component: MovieDetailComponent;
@@ -171,10 +172,10 @@ describe('MovieDetailComponent', () => {
     ],
   };
 
-  const mockMovieService = {
+  const mockCustomMoviesService = {
     getMovie: jest.fn(() => of(movieData)),
     getCastMovie: jest.fn(() => of(castData)),
-    getVideoMovies: jest.fn(() => of(videoMovieData)),
+    getVideoMovie: jest.fn(() => of(videoMovieData)),
   };
 
   beforeEach(async () => {
@@ -182,7 +183,7 @@ describe('MovieDetailComponent', () => {
       declarations: [MovieDetailComponent, MockComponents(AccordionComponent, MfeCastComponentsComponent), MockPipe(PosterPipe)],
       imports: [MockModule(MatIconModule)],
       providers: [
-        { provide: MoviesService, useValue: mockMovieService },
+        { provide: CustomMoviesService, useValue: mockCustomMoviesService },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -248,34 +249,34 @@ describe('MovieDetailComponent', () => {
 
   it('should set favorite movie when movie is not in localStorage', () => {
     const favoriteMovies = [{ id: '123ABC' }, { id: '456DEF' }, { id: movieData.id }];
-    const localStorageMovies = favoriteMovies.slice(0,-1);
+    const localStorageMovies = favoriteMovies.slice(0, -1);
 
     jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(JSON.stringify(localStorageMovies));
     jest.spyOn(Storage.prototype, 'setItem');
 
     component.setFavorite();
 
-    expect(Storage.prototype.setItem).toHaveBeenCalledWith('favorites',JSON.stringify(favoriteMovies));
+    expect(Storage.prototype.setItem).toHaveBeenCalledWith('favorites', JSON.stringify(favoriteMovies));
   });
 
   it('should remove favorite movie when movie is in localStorage', () => {
-    const localStorageMovies  = [{ id: '123ABC' }, { id: '456DEF' }, { id: movieData.id }];
-    const favoriteMovies = localStorageMovies.slice(0,-1);
+    const localStorageMovies = [{ id: '123ABC' }, { id: '456DEF' }, { id: movieData.id }];
+    const favoriteMovies = localStorageMovies.slice(0, -1);
 
     jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(JSON.stringify(localStorageMovies));
     jest.spyOn(Storage.prototype, 'setItem');
 
     component.setFavorite();
 
-    expect(Storage.prototype.setItem).toHaveBeenCalledWith('favorites',JSON.stringify(favoriteMovies));
+    expect(Storage.prototype.setItem).toHaveBeenCalledWith('favorites', JSON.stringify(favoriteMovies));
   });
 
   it('should set name actor when MfeCastComponentsComponent emit actor name', () => {
-    const actor = 'Name Actor'
+    const actor = 'Name Actor';
     jest.spyOn(component, 'getSelectActor');
 
     const mockMfeCastComponentsComponent = ngMocks.find<MfeCastComponentsComponent>('app-mfe-cast-components').componentInstance;
-    mockMfeCastComponentsComponent.actor.emit(actor)
+    mockMfeCastComponentsComponent.actor.emit(actor);
 
     expect(component.getSelectActor).toHaveBeenCalledWith(actor);
   });

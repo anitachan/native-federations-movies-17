@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
 import { MockProvider, ngMocks, MockComponent } from 'ng-mocks';
-import { MoviesGridComponent, MoviesService } from 'shared-lib';
+import { MoviesGridComponent } from 'shared-lib';
 import { of } from 'rxjs';
+import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -89,14 +90,14 @@ describe('DashboardComponent', () => {
     total_results: 1683,
   };
 
-  const mockMoviesService = {
+  const mockCustomMoviesService = {
     getNowPlayingMovies: jest.fn().mockReturnValue(of(moviesNowPlayingData)),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DashboardComponent, MockComponent(MoviesGridComponent)],
-      providers: [MockProvider(MoviesService, mockMoviesService, 'useValue')],
+      providers: [MockProvider(CustomMoviesService, mockCustomMoviesService, 'useValue')],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
@@ -109,10 +110,9 @@ describe('DashboardComponent', () => {
   });
 
   it('should call movie service when the component init and send the child component the correct data', () => {
-    const mockMoviesGridComponent =
-      ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
+    const mockMoviesGridComponent = ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
 
-    expect(mockMoviesService.getNowPlayingMovies).toHaveBeenCalledWith();
+    expect(mockCustomMoviesService.getNowPlayingMovies).toHaveBeenCalledWith();
     expect(mockMoviesGridComponent.movies).toEqual(moviesNowPlayingData.results);
     expect(mockMoviesGridComponent.columns).toEqual(2);
   });

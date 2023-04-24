@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
-import { MoviesService, Movie } from 'shared-lib';
+import { Observable, map } from 'rxjs';
+import { Movie } from 'shared-lib';
+import { environment } from '../../../environments/environment';
+import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,16 +11,15 @@ import { MoviesService, Movie } from 'shared-lib';
 })
 export class DashboardComponent implements OnInit {
   movies$: Observable<Movie[]> = new Observable();
+  urlImage: string = environment.tmdbImage;
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(private customMoviesService: CustomMoviesService) {}
 
   ngOnInit(): void {
     this.getTrendingMovies();
   }
 
   getTrendingMovies() {
-    this.movies$ = this.moviesService
-      .getNowPlayingMovies()
-      .pipe(map(({ results }) => results));
+    this.movies$ = this.customMoviesService.getNowPlayingMovies().pipe(map(({ results }) => results));
   }
 }

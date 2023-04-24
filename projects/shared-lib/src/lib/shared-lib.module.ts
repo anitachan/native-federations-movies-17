@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -6,19 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { SharedLibComponent } from './shared-lib.component';
-import { CommonModule } from '@angular/common';
-import { PosterPipe } from './pipes/poster.pipe';
-import { MoviesGridComponent } from './components/movies-grid/movies-grid.component';
-import { HttpClientModule } from '@angular/common/http';
-import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { DEFAULT_CONFIGURATION, DEFAULT_PROVIDERS, ENDPOINTS_CONFIG, ISharedLibConfigurationModel } from './shared-lib.configuration';
+import { MoviesGridComponent } from './ui/components/movies-grid/movies-grid.component';
+import { StarRatingComponent } from './ui/components/star-rating/star-rating.component';
+import { PosterPipe } from './ui/pipes/poster.pipe';
 
 @NgModule({
-  declarations: [
-    SharedLibComponent,
-    MoviesGridComponent,
-    StarRatingComponent,
-    PosterPipe,
-  ],
+  declarations: [SharedLibComponent, MoviesGridComponent, StarRatingComponent, PosterPipe],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -30,11 +26,27 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     MatGridListModule,
     MatIconModule,
   ],
-  exports: [
-    SharedLibComponent,
-    MoviesGridComponent,
-    StarRatingComponent,
-    PosterPipe,
-  ],
+  exports: [SharedLibComponent, MoviesGridComponent, StarRatingComponent, PosterPipe],
 })
-export class SharedLibModule {}
+export class SharedLibModule {
+  static forRoot(configuration: ISharedLibConfigurationModel): ModuleWithProviders<SharedLibModule> {
+    let conf = DEFAULT_CONFIGURATION;
+    if (configuration) {
+      conf = {
+        ...DEFAULT_CONFIGURATION,
+        endpoints: configuration.endpoints || conf.endpoints,
+        infrastructures: configuration.infrastructures || conf.infrastructures,
+      };
+    }
+    return {
+      ngModule: SharedLibModule,
+      providers: [
+        ...DEFAULT_PROVIDERS,
+        ...conf.infrastructures!.map(x => {
+          return { provide: x.gateway, useClass: x.implementation };
+        }),
+        { provide: ENDPOINTS_CONFIG, useValue: conf.endpoints },
+      ],
+    };
+  }
+}

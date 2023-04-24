@@ -1,30 +1,22 @@
 <div class="movie-container" *ngIf="movieData$ | async as movieDetail">
   <div class="mat-display-2">{{ movieDetail.movie.title }}</div>
   <div class="movie-detail">
-    <div
-      [ngStyle]="{
+    <div [ngStyle]="{
         'background-size': 'cover',
         'background-image':
-          'url(' + (movieDetail.movie.backdrop_path | poster: 'original') + ')',
+          'url(' + (movieDetail.movie.backdrop_path | poster: urlImage: 'original') + ')',
         width: '100%'
-      }"
-    >
+      }">
       <div class="overlay">
         <button mat-icon-button aria-label="favorite" (click)="setFavorite()">
           <mat-icon>{{ favorite ? "favorite" : "favorite_border" }}</mat-icon>
         </button>
       </div>
     </div>
-    <app-accordion
-      [movie]="movieDetail.movie"
-      [genres]="movieDetail.genres"
-      [selectedActor]="selectedActor"
-    ></app-accordion>
+    <app-accordion [movie]="movieDetail.movie" [genres]="movieDetail.genres"
+      [selectedActor]="selectedActor"></app-accordion>
   </div>
   <div>
-    <app-mfe-cast-components
-      [cast]="movieDetail.cast"
-      (actor)="getSelectActor($event)"
-    ></app-mfe-cast-components>
+    <app-mfe-cast-components [cast]="movieDetail.cast" (actor)="getSelectActor($event)"></app-mfe-cast-components>
   </div>
 </div>

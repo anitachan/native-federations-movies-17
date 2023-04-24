@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Cast, Genre, MovieDetail, MoviesService, VideoItem } from 'shared-lib';
-
+import { Cast, Genre, MovieDetail, VideoItem } from 'shared-lib';
 import { ActivatedRoute } from '@angular/router';
+import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-movie-detail',
@@ -21,8 +22,9 @@ export class MovieDetailComponent implements OnInit {
   movieId: string;
   favorite: boolean = false;
   selectedActor: string = '';
+  urlImage: string = environment.tmdbImage;
 
-  constructor(private moviesService: MoviesService, private activatedRoute: ActivatedRoute) {}
+  constructor(private customMoviesService: CustomMoviesService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.movieId = this.activatedRoute.snapshot.paramMap.get('id')!;
@@ -33,9 +35,9 @@ export class MovieDetailComponent implements OnInit {
 
   getMoviesDetails() {
     this.movieData$ = combineLatest({
-      movie: this.moviesService.getMovie(this.movieId),
-      cast: this.moviesService.getCastMovie(this.movieId),
-      videos: this.moviesService.getVideoMovies(this.movieId),
+      movie: this.customMoviesService.getMovie(this.movieId),
+      cast: this.customMoviesService.getCastMovie(this.movieId),
+      videos: this.customMoviesService.getVideoMovie(this.movieId),
     }).pipe(
       map(({ movie, cast, videos }) => ({
         movie,

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Movie } from '../../models/now-playing.interface';
+import { Movie } from '../../../domain/models/movies/now-playing.interface';
 
 @Component({
   selector: 'app-movies-grid',
@@ -9,4 +9,5 @@ import { Movie } from '../../models/now-playing.interface';
 export class MoviesGridComponent {
   @Input() movies: Movie[];
   @Input() columns: number;
+  @Input() urlImage: string;
 }

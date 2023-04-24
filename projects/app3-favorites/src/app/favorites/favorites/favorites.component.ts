@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesService, Movie, MovieDetail } from 'shared-lib';
-import { forkJoin, map, Observable, takeUntil, tap } from 'rxjs';
+import { Observable, forkJoin, map } from 'rxjs';
+import { Movie, MovieDetail } from 'shared-lib';
+import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-favorites',
@@ -10,31 +12,29 @@ import { forkJoin, map, Observable, takeUntil, tap } from 'rxjs';
 export class FavoritesComponent implements OnInit {
   favorites$: Observable<Movie[]>;
   imageHeight: string = '75vh';
+  urlImage: string = environment.tmdbImage;
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(private customMoviesService: CustomMoviesService) {}
 
   ngOnInit(): void {
     this.getFavoritesMovies();
   }
 
   getFavoritesMovies() {
-    const favoritesLocalStorage: [{ id: string }] =
-      JSON.parse(localStorage.getItem('favorites')!) || [];
+    const favoritesLocalStorage: [{ id: string }] = JSON.parse(localStorage.getItem('favorites')!) || [];
 
     let observable: Array<Observable<MovieDetail>> = [];
 
     favoritesLocalStorage.forEach(({ id }, i: number) => {
-      observable.push(this.moviesService.getMovie(id));
+      observable.push(this.customMoviesService.getMovie(id));
     });
 
-    this.favorites$ = forkJoin(observable).pipe(
-      map((result: MovieDetail[]) => this.addFavorites(result)),
-    );
+    this.favorites$ = forkJoin(observable).pipe(map((result: MovieDetail[]) => this.addFavorites(result)));
   }
 
   private addFavorites(result: MovieDetail[]) {
     let favoritesList: Movie[] = [];
-    result.forEach((item) => {
+    result.forEach(item => {
       favoritesList.push(this.getMovieData(item));
     });
     return favoritesList;

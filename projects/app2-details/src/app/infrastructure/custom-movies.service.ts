@@ -1,23 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-
-import { Cast, Credits } from './models/credits.interface';
-import { MovieDetail } from './models/movie-detail.interface';
-import { MovieVideos } from './models/movie-videos.interface';
-import { NowPlaying } from './models/now-playing.interface';
+import { Observable, map } from 'rxjs';
+import { Cast, Credits, Genres, MovieDetail, MovieVideos, MoviesGateway, NowPlaying } from 'shared-lib';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MoviesService {
+export class CustomMoviesService extends MoviesGateway {
   private page = 1;
+  private tmdbUrl = environment.tmdbUrl;
+  private tmbdApiKey = environment.tmbdApiKey;
 
-  private tmdbUrl = 'https://api.themoviedb.org/3/';
-  private tmbdApiKey = '65df35e6319938218e94a8b2587bd921';
-
-  constructor(private httpClient: HttpClient) {}
-
+  constructor(private httpClient: HttpClient) {
+    super(httpClient);
+  }
   get params() {
     return {
       api_key: this.tmbdApiKey,
@@ -26,25 +23,19 @@ export class MoviesService {
   }
 
   getNowPlayingMovies(): Observable<NowPlaying> {
-    const url: string = `${this.tmdbUrl}movie/now_playing`;
-    return this.httpClient.get<NowPlaying>(url, { params: this.params });
+    throw new Error('Method not implemented.');
   }
-
   getMovie(movieId: string): Observable<MovieDetail> {
     const url: string = `${this.tmdbUrl}movie/${movieId}`;
     return this.httpClient.get<MovieDetail>(url, { params: this.params });
   }
-
-  // getGenreMovies(): Observable<Genres> {
-  //   const url: string = `${this.tmdbUrl}genre/movie/list`;
-  //   return this.httpClient.get<Genres>(url, { params: this.params });
-  // }
-
-  getVideoMovies(movieId: string): Observable<MovieVideos> {
+  getGenreMovies(): Observable<Genres> {
+    throw new Error('Method not implemented.');
+  }
+  getVideoMovie(movieId: string): Observable<MovieVideos> {
     const url: string = `${this.tmdbUrl}movie/${movieId}/videos`;
     return this.httpClient.get<MovieVideos>(url, { params: this.params });
   }
-
   getCastMovie(movieId: string): Observable<Cast[]> {
     const url: string = `${this.tmdbUrl}movie/${movieId}/credits`;
     return this.httpClient.get<Credits>(url, { params: this.params }).pipe(map(resp => resp.cast));

@@ -3,13 +3,11 @@ import { Observable, catchError, of } from 'rxjs';
 import { Genres } from '../../movies/movie-detail.interface';
 import { MoviesGateway } from '../../movies/movies.gateway';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class GetGenreMoviesUsecaseService {
   constructor(private moviesGateway: MoviesGateway) {}
 
   invoke(): Observable<Genres> {
-    return this.moviesGateway.getGenreMovies().pipe(catchError(error => of(error)));
+    return this.moviesGateway.getGenreMovies().pipe(catchError((error) => of(error)));
   }
 }

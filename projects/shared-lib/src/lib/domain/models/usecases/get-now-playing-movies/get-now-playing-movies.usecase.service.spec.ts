@@ -93,7 +93,7 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: MoviesGateway, useValue: mockMoviesGateway }],
+      providers: [GetNowPlayingMoviesUsecaseService, { provide: MoviesGateway, useValue: mockMoviesGateway }],
     });
     useCase = TestBed.inject(GetNowPlayingMoviesUsecaseService);
   });
@@ -102,20 +102,20 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
     expect(useCase).toBeTruthy();
   });
 
-  it('should return the correct data', done => {
-    useCase.invoke().subscribe(data => {
+  it('should return the correct data', (done) => {
+    useCase.invoke().subscribe((data) => {
       expect(data).toEqual(mockMoviesNowPlayingData);
       done();
     });
   });
 
-  it('should call invoke and return error', done => {
+  it('should call invoke and return error', (done) => {
     const error = {
       status: 404,
     };
     jest.spyOn(mockMoviesGateway, 'getNowPlayingMovies').mockImplementationOnce(() => throwError(() => error));
 
-    useCase.invoke().subscribe(resp => {
+    useCase.invoke().subscribe((resp) => {
       expect(resp).toEqual(error);
       done();
     });

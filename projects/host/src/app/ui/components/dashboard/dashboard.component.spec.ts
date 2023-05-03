@@ -4,7 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { MockProvider, ngMocks, MockComponent } from 'ng-mocks';
 import { MoviesGridComponent } from 'shared-lib';
 import { of } from 'rxjs';
-import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
+import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;

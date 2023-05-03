@@ -55,7 +55,7 @@ describe('GetVideoMovieUsecaseService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: MoviesGateway, useValue: mockMoviesGateway }],
+      providers: [GetVideoMovieUsecaseService, { provide: MoviesGateway, useValue: mockMoviesGateway }],
     });
     useCase = TestBed.inject(GetVideoMovieUsecaseService);
   });
@@ -64,20 +64,20 @@ describe('GetVideoMovieUsecaseService', () => {
     expect(useCase).toBeTruthy();
   });
 
-  it('should return the correct data', done => {
-    useCase.invoke(mockBody).subscribe(data => {
+  it('should return the correct data', (done) => {
+    useCase.invoke(mockBody).subscribe((data) => {
       expect(data).toEqual(mockVideoMovieData);
       done();
     });
   });
 
-  it('should call invoke and return error', done => {
+  it('should call invoke and return error', (done) => {
     const error = {
       status: 404,
     };
     jest.spyOn(mockMoviesGateway, 'getVideoMovie').mockImplementationOnce(() => throwError(() => error));
 
-    useCase.invoke(mockBody).subscribe(resp => {
+    useCase.invoke(mockBody).subscribe((resp) => {
       expect(resp).toEqual(error);
       done();
     });

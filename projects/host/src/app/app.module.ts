@@ -10,13 +10,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ToolbarComponent } from './home/toolbar/toolbar.component';
 import { MoviesGateway, SharedLibModule } from 'shared-lib';
-import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { CustomMoviesService } from './infrastructure/custom-movies.service';
+import { DashboardComponent } from './ui/components/dashboard/dashboard.component';
+import { ToolbarComponent } from './ui/components/toolbar/toolbar.component';
+import { SidenavBarComponent } from './ui/components/sidenav-bar/sidenav-bar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, ToolbarComponent],
+  declarations: [AppComponent, DashboardComponent, ToolbarComponent, SidenavBarComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -26,6 +29,8 @@ import { CustomMoviesService } from './infrastructure/custom-movies.service';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
+    MatSidenavModule,
+    MatListModule,
     SharedLibModule.forRoot({
       infrastructures: [
         {

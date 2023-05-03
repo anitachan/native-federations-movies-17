@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { Genres, MovieDetail } from '../../domain/models/movies/movie-detail.interface';
-import { NowPlaying } from '../../domain/models/movies/now-playing.interface';
-import { MovieVideos } from '../../domain/models/movies/movie-videos.interface';
+import { Observable } from 'rxjs';
 import { Cast } from '../../domain/models/movies/credits.interface';
-import { MOVIES_SERVICE_ENDPOINTS, MoviesServiceEntries } from './movies.service.configuration';
+import { Genres, MovieDetail } from '../../domain/models/movies/movie-detail.interface';
+import { MovieVideos } from '../../domain/models/movies/movie-videos.interface';
 import { MoviesGateway } from '../../domain/models/movies/movies.gateway';
+import { NowPlaying } from '../../domain/models/movies/now-playing.interface';
+import { MOVIES_SERVICE_ENDPOINTS, MoviesServiceEntries } from './movies.service.configuration';
 
 @Injectable()
 export class MoviesService extends MoviesGateway {

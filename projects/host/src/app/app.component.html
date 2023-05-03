@@ -1,2 +1,6 @@
-<app-toolbar></app-toolbar>
-<router-outlet></router-outlet>
+<app-toolbar (sidenavEvent)="sidenavOpen = $event"></app-toolbar>
+<div *ngIf="mobile$ !== null as mobile">
+  <app-sidenav-bar [sidenavConfig]="sidenavConfig" [mobile]="mobile" [open]="sidenavOpen" [mode]="'side'">
+    <router-outlet></router-outlet>
+  </app-sidenav-bar>
+</div>

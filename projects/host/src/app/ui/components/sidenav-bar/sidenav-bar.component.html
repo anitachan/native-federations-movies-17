@@ -1,0 +1,14 @@
+<mat-sidenav-container mode="over" [autosize]="true" [hasBackdrop]="false">
+  <mat-sidenav #sidenav [mode]="mode" [fixedInViewport]="true" [fixedTopGap]="mobile ? 56 : 64" [opened]="open">
+    <mat-list role="list">
+      <ng-container *ngFor="let sidenavItem of sidenavConfig">
+        <mat-list-item role="listitem" [routerLink]="sidenavItem.route" routerLinkActive="selected">
+          <mat-icon mat-list-icon>{{sidenavItem.icon}}</mat-icon>
+          <span>{{sidenavItem.label}}</span>
+        </mat-list-item>
+      </ng-container>
+    </mat-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content><ng-content></ng-content></mat-sidenav-content>
+</mat-sidenav-container>

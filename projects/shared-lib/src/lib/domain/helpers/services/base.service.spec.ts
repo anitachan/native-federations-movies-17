@@ -27,6 +27,7 @@ describe('BaseService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
+      providers: [BaseService],
     });
     service = TestBed.inject(BaseService);
     httpCtrl = TestBed.inject(HttpTestingController);
@@ -36,10 +37,10 @@ describe('BaseService', () => {
     expect(service).toBeTruthy();
   });
 
-  Object.keys(HTTP_METHODS).forEach(method => {
-    it(`should set headers, parameters and body with ${method}`, done => {
+  Object.keys(HTTP_METHODS).forEach((method) => {
+    it(`should set headers, parameters and body with ${method}`, (done) => {
       const response = `mock${method}Response`;
-      const subscription = service.baseRequest('path', method, options).subscribe(res => {
+      const subscription = service.baseRequest('path', method, options).subscribe((res) => {
         expect(res).toEqual(response);
         done();
       });
@@ -57,10 +58,10 @@ describe('BaseService', () => {
     });
   });
 
-  Object.keys(HTTP_METHODS).forEach(method => {
-    it(`should set headers, parameters, body with ${method} and return null when returnError is false`, done => {
+  Object.keys(HTTP_METHODS).forEach((method) => {
+    it(`should set headers, parameters, body with ${method} and return null when returnError is false`, (done) => {
       const response = `mock${method}Response`;
-      const subscription = service.baseRequest('path', method, options, false).subscribe(res => {
+      const subscription = service.baseRequest('path', method, options, false).subscribe((res) => {
         expect(res).toEqual(null);
         done();
       });
@@ -82,15 +83,15 @@ describe('BaseService', () => {
     });
   });
 
-  Object.keys(HTTP_METHODS).forEach(method => {
+  Object.keys(HTTP_METHODS).forEach((method) => {
     const errorResponse = {
       status: 400,
       statusText: `Error ${method}`,
     };
-    it(`should set headers, parameters, body with ${method} and return null when returnError is true`, done => {
+    it(`should set headers, parameters, body with ${method} and return null when returnError is true`, (done) => {
       const response = `mock${method}Response`;
       const subscription = service.baseRequest('path', method, options, true).subscribe({
-        error: error => {
+        error: (error) => {
           expect(error.status).toBe(errorResponse.status);
           expect(error.statusText).toBe(errorResponse.statusText);
           done();

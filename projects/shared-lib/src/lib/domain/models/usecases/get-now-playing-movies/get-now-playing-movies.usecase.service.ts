@@ -3,13 +3,11 @@ import { MoviesGateway } from '../../movies/movies.gateway';
 import { Observable, catchError, of } from 'rxjs';
 import { NowPlaying } from '../../movies/now-playing.interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class GetNowPlayingMoviesUsecaseService {
   constructor(private moviesGateway: MoviesGateway) {}
 
   invoke(): Observable<NowPlaying> {
-    return this.moviesGateway.getNowPlayingMovies().pipe(catchError(error => of(error)));
+    return this.moviesGateway.getNowPlayingMovies().pipe(catchError((error) => of(error)));
   }
 }

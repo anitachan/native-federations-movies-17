@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Movie } from 'shared-lib';
-import { environment } from '../../../environments/environment';
-import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
+import { environment } from '../../../../environments/environment';
+import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
 
 @Component({
   selector: 'app-dashboard',

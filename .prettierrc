@@ -13,6 +13,14 @@
       "options": {
         "parser": "html"
       }
+    },
+    {
+      "files": ["*.ts"],
+      "options": {
+        "arrowParens": "always",
+        "quoteProps": "as-needed",
+        "singleQuote": true
+      }
     }
   ]
 }

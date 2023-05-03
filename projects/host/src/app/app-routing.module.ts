@@ -1,7 +1,23 @@
 import { loadRemoteModule } from '@angular-architects/module-federation';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './home/dashboard/dashboard.component';
+import { DashboardComponent } from './ui/components/dashboard/dashboard.component';
+import { SidenavBar } from './ui/models/sidenav-bar.interface';
+
+export const sidenavRoutes: SidenavBar[] = [
+  {
+    id: 'home',
+    label: 'Home',
+    icon: 'home',
+    route: '/home',
+  },
+  {
+    id: 'favorites',
+    label: 'Favorites',
+    icon: 'favorite',
+    route: '/favorites',
+  },
+];
 
 const routes: Routes = [
   { path: 'home', component: DashboardComponent },

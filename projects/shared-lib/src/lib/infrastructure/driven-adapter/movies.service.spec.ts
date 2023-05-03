@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { MoviesService } from './movies.service';
+import { MOVIES_SERVICE_ENDPOINTS } from './movies.service.configuration';
 
 describe('MoviesService', () => {
   let service: MoviesService;
   let httpCtrl: HttpTestingController;
-  const tmdbUrl = 'https://api.themoviedb.org/3/';
+  const tmdbUrl = 'https://api.themoviedb.org/3';
 
   const mockMoviesNowPlayingData = {
     dates: {
@@ -160,6 +161,87 @@ describe('MoviesService', () => {
     video: false,
     vote_average: 8.3,
     vote_count: 12064,
+  };
+
+  const mockGenresData = {
+    genres: [
+      {
+        id: 28,
+        name: 'Action',
+      },
+      {
+        id: 12,
+        name: 'Adventure',
+      },
+      {
+        id: 16,
+        name: 'Animation',
+      },
+      {
+        id: 35,
+        name: 'Comedy',
+      },
+      {
+        id: 80,
+        name: 'Crime',
+      },
+      {
+        id: 99,
+        name: 'Documentary',
+      },
+      {
+        id: 18,
+        name: 'Drama',
+      },
+      {
+        id: 10751,
+        name: 'Family',
+      },
+      {
+        id: 14,
+        name: 'Fantasy',
+      },
+      {
+        id: 36,
+        name: 'History',
+      },
+      {
+        id: 27,
+        name: 'Horror',
+      },
+      {
+        id: 10402,
+        name: 'Music',
+      },
+      {
+        id: 9648,
+        name: 'Mystery',
+      },
+      {
+        id: 10749,
+        name: 'Romance',
+      },
+      {
+        id: 878,
+        name: 'Science Fiction',
+      },
+      {
+        id: 10770,
+        name: 'TV Movie',
+      },
+      {
+        id: 53,
+        name: 'Thriller',
+      },
+      {
+        id: 10752,
+        name: 'War',
+      },
+      {
+        id: 37,
+        name: 'Western',
+      },
+    ],
   };
 
   const mockCastData = {
@@ -514,8 +596,25 @@ describe('MoviesService', () => {
     ],
   };
 
+  const mockMoviesServiceEndpoints = {
+    GET_NOW_PLAYING_MOVIES: `${tmdbUrl}/getPlayingMovies`,
+    GET_MOVIE: `${tmdbUrl}getMovie/`,
+    GET_GENRE_MOVIES: `${tmdbUrl}/getGenres`,
+    GET_VIDEO_MOVIE: `${tmdbUrl}/getVideos`,
+    GET_CAST_MOVIE: `${tmdbUrl}/getCast`,
+  };
+
   beforeEach(() => {
-    TestBed.configureTestingModule({ imports: [HttpClientTestingModule] });
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [
+        MoviesService,
+        {
+          provide: MOVIES_SERVICE_ENDPOINTS,
+          useValue: mockMoviesServiceEndpoints,
+        },
+      ],
+    });
     service = TestBed.inject(MoviesService);
     httpCtrl = TestBed.inject(HttpTestingController);
   });
@@ -524,70 +623,71 @@ describe('MoviesService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get and return now playing movies', done => {
-    const url: string = `${tmdbUrl}movie/now_playing?api_key=${service.params.api_key}&page=${service.params.page}`;
-    service.getNowPlayingMovies().subscribe(response => {
-      expect(response).toBeTruthy();
-      expect(response).toEqual(mockMoviesNowPlayingData);
+  it('should get now playing movies', done => {
+    const response = service.getNowPlayingMovies();
+    const subscription = response.subscribe(data => {
+      expect(data).toBe(mockMoviesNowPlayingData);
       done();
     });
 
-    const mockHttp = httpCtrl.expectOne(url);
-    const httpRequest = mockHttp.request;
-
-    expect(httpRequest.method).toEqual('GET');
-
-    mockHttp.flush(mockMoviesNowPlayingData);
+    const request = httpCtrl.expectOne(mockMoviesServiceEndpoints.GET_NOW_PLAYING_MOVIES);
+    expect(request.request.method).toBe('GET');
+    request.flush(mockMoviesNowPlayingData);
+    subscription.unsubscribe();
   });
 
-  it('should get and return movie detail with the movie id', done => {
+  it('should get getMovie by Id', done => {
     const movieId = 'movieId';
-    const url: string = `${tmdbUrl}movie/${movieId}?api_key=${service.params.api_key}&page=${service.params.page}`;
-    service.getMovie(movieId).subscribe(response => {
-      expect(response).toBeTruthy();
-      expect(response).toEqual(mockMovieData);
+    const response = service.getMovie(movieId);
+    const subscription = response.subscribe(data => {
+      expect(data).toBe(mockMovieData);
       done();
     });
 
-    const mockHttp = httpCtrl.expectOne(url);
-    const httpRequest = mockHttp.request;
-
-    expect(httpRequest.method).toEqual('GET');
-
-    mockHttp.flush(mockMovieData);
+    const request = httpCtrl.expectOne(mockMoviesServiceEndpoints.GET_MOVIE);
+    expect(request.request.method).toBe('GET');
+    request.flush(mockMovieData);
+    subscription.unsubscribe();
   });
 
-  it('should get and return movie videos with the movie id', done => {
-    const movieId = 'movieId';
-    const url: string = `${tmdbUrl}movie/${movieId}/videos?api_key=${service.params.api_key}&page=${service.params.page}`;
-    service.getVideoMovies(movieId).subscribe(response => {
-      expect(response).toBeTruthy();
-      expect(response).toEqual(mockVideoMovieData);
+  it('should genres movie', done => {
+    const response = service.getGenreMovies();
+    const subscription = response.subscribe(data => {
+      expect(data).toBe(mockGenresData);
       done();
     });
 
-    const mockHttp = httpCtrl.expectOne(url);
-    const httpRequest = mockHttp.request;
-
-    expect(httpRequest.method).toEqual('GET');
-
-    mockHttp.flush(mockVideoMovieData);
+    const request = httpCtrl.expectOne(mockMoviesServiceEndpoints.GET_GENRE_MOVIES);
+    expect(request.request.method).toBe('GET');
+    request.flush(mockGenresData);
+    subscription.unsubscribe();
   });
 
-  it('should get and return movie cast with the movie id', done => {
+  it('should get getVideoMovie by Id', done => {
     const movieId = 'movieId';
-    const url: string = `${tmdbUrl}movie/${movieId}/credits?api_key=${service.params.api_key}&page=${service.params.page}`;
-    service.getCastMovie(movieId).subscribe(response => {
-      expect(response).toBeTruthy();
-      expect(response).toEqual(mockCastData.cast);
+    const response = service.getVideoMovie(movieId);
+    const subscription = response.subscribe(data => {
+      expect(data).toBe(mockVideoMovieData);
       done();
     });
 
-    const mockHttp = httpCtrl.expectOne(url);
-    const httpRequest = mockHttp.request;
+    const request = httpCtrl.expectOne(mockMoviesServiceEndpoints.GET_VIDEO_MOVIE);
+    expect(request.request.method).toBe('GET');
+    request.flush(mockVideoMovieData);
+    subscription.unsubscribe();
+  });
 
-    expect(httpRequest.method).toEqual('GET');
+  it('should get getCastMovie by Id', done => {
+    const movieId = 'movieId';
+    const response = service.getCastMovie(movieId);
+    const subscription = response.subscribe(data => {
+      expect(data).toBe(mockCastData);
+      done();
+    });
 
-    mockHttp.flush(mockCastData);
+    const request = httpCtrl.expectOne(mockMoviesServiceEndpoints.GET_CAST_MOVIE);
+    expect(request.request.method).toBe('GET');
+    request.flush(mockCastData);
+    subscription.unsubscribe();
   });
 });

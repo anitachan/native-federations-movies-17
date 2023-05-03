@@ -1,6 +1,7 @@
 export enum HTTP_METHODS {
-  GET = 'get',
-  POST = 'post',
-  UPDATE = 'update',
-  DELETE = 'delete',
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  UPDATE = 'UPDATE',
+  DELETE = 'DELETE',
 }

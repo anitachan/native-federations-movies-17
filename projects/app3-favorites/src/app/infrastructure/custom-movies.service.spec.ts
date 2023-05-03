@@ -109,7 +109,7 @@ describe('CustomMoviesService', () => {
   it('should get and return movie detail with the movie id', done => {
     const movieId = 'movieId';
     const url: string = `${tmdbUrl}movie/${movieId}?api_key=${service.params.api_key}&page=${service.params.page}`;
-    service.getMovie(movieId).subscribe(response => {
+    const subscription = service.getMovie(movieId).subscribe(response => {
       expect(response).toBeTruthy();
       expect(response).toEqual(mockMovieData);
       done();
@@ -121,6 +121,7 @@ describe('CustomMoviesService', () => {
     expect(httpRequest.method).toEqual('GET');
 
     mockHttp.flush(mockMovieData);
+    subscription.unsubscribe();
   });
 
   it('should return error when getGenreMovies is called', () => {

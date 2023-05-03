@@ -9,7 +9,7 @@ import { MoviesGateway } from '../../movies/movies.gateway';
 export class GetVideoMovieUsecaseService {
   constructor(private moviesGateway: MoviesGateway) {}
 
-  invoke(body: any): Observable<MovieVideos | null> {
-    return this.moviesGateway.getVideoMovie(body).pipe(catchError(() => of(null)));
+  invoke(body: any): Observable<MovieVideos> {
+    return this.moviesGateway.getVideoMovie(body).pipe(catchError(error => of(error)));
   }
 }

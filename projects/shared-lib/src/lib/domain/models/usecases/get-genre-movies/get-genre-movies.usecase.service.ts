@@ -9,7 +9,7 @@ import { MoviesGateway } from '../../movies/movies.gateway';
 export class GetGenreMoviesUsecaseService {
   constructor(private moviesGateway: MoviesGateway) {}
 
-  invoke(): Observable<Genres | null> {
-    return this.moviesGateway.getGenreMovies().pipe(catchError(() => of(null)));
+  invoke(): Observable<Genres> {
+    return this.moviesGateway.getGenreMovies().pipe(catchError(error => of(error)));
   }
 }

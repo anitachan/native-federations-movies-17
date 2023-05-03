@@ -100,7 +100,7 @@ describe('CustomMoviesService', () => {
 
   it('should get and return now playing movies', done => {
     const url: string = `${environment.tmdbUrl}movie/now_playing?api_key=${service.params.api_key}&page=${service.params.page}`;
-    service.getNowPlayingMovies().subscribe(response => {
+    const subscription = service.getNowPlayingMovies().subscribe(response => {
       expect(response).toBeTruthy();
       expect(response).toEqual(mockMoviesNowPlayingData);
       done();
@@ -112,6 +112,7 @@ describe('CustomMoviesService', () => {
     expect(httpRequest.method).toEqual('GET');
 
     mockHttp.flush(mockMoviesNowPlayingData);
+    subscription.unsubscribe();
   });
 
   it('should return error when getCastMovie is called', () => {

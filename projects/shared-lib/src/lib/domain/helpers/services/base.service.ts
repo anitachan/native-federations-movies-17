@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class BaseService {
-  identifier: string;
-
   constructor(public http: HttpClient) {}
 
   baseRequest<T>(

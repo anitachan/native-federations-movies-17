@@ -5,12 +5,12 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatGridListHarness, MatGridTileHarness } from '@angular/material/grid-list/testing';
 import { MoviesGridComponent } from './movies-grid.component';
-import { Movie } from '../../models/now-playing.interface';
 import { MockPipe, MockComponent } from 'ng-mocks';
 import { PosterPipe } from '../../pipes/poster.pipe';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
+import { Movie } from '../../../domain/models/movies/now-playing.interface';
 
 describe('MoviesGridComponent', () => {
   let component: MoviesGridComponent;

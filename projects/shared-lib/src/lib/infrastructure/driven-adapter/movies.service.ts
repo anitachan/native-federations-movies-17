@@ -14,7 +14,7 @@ export class MoviesService extends MoviesGateway {
     super(httpClient);
   }
 
-  getNowPlayingMovies(): Observable<NowPlaying> {
+  getNowPlayingMovies(page: number): Observable<NowPlaying> {
     const path = this.endpoints[MoviesServiceEntries.GET_NOW_PLAYING_MOVIES];
     return this.baseRequest<NowPlaying>(path, 'GET');
   }

@@ -6,7 +6,7 @@ import { MovieVideos } from './movie-videos.interface';
 import { NowPlaying } from './now-playing.interface';
 
 export abstract class MoviesGateway extends BaseService {
-  abstract getNowPlayingMovies(): Observable<NowPlaying>;
+  abstract getNowPlayingMovies(page: number): Observable<NowPlaying>;
   abstract getMovie(movieId: string): Observable<MovieDetail>;
   abstract getGenreMovies(): Observable<Genres>;
   abstract getVideoMovie(movieId: string): Observable<MovieVideos>;

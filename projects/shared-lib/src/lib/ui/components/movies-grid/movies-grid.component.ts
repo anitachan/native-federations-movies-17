@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Movie } from '../../../domain/models/movies/now-playing.interface';
 
 @Component({
@@ -10,4 +10,6 @@ export class MoviesGridComponent {
   @Input() movies: Movie[];
   @Input() columns: number;
   @Input() urlImage: string;
+
+  @Output() loadMore = new EventEmitter();
 }

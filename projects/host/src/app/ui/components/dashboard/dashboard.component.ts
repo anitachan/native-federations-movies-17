@@ -3,6 +3,7 @@ import { Observable, map } from 'rxjs';
 import { Movie } from 'shared-lib';
 import { environment } from '../../../../environments/environment';
 import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
+import { ONE } from '../../../infrastructure/constants/number.constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,10 +17,14 @@ export class DashboardComponent implements OnInit {
   constructor(private customMoviesService: CustomMoviesService) {}
 
   ngOnInit(): void {
-    this.getTrendingMovies();
+    this.getTrendingMovies(ONE);
   }
 
-  getTrendingMovies() {
-    this.movies$ = this.customMoviesService.getNowPlayingMovies().pipe(map(({ results }) => results));
+  getTrendingMovies(page: number) {
+    this.movies$ = this.customMoviesService.getNowPlayingMovies(page).pipe(map(({ results }) => results));
+  }
+
+  loadMore(page: number) {
+    this.getTrendingMovies(page);
   }
 }

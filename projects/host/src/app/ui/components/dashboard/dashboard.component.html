@@ -1,2 +1,7 @@
-<app-movies-grid *ngIf="movies$ | async as movies" [movies]="movies" [columns]="2"
-  [urlImage]="urlImage"></app-movies-grid>
+<app-movies-grid
+  *ngIf="movies$ | async as movies"
+  [movies]="movies"
+  [columns]="2"
+  [urlImage]="urlImage"
+  (loadMore)="loadMore($event)"
+></app-movies-grid>

@@ -7,7 +7,7 @@ import { NowPlaying } from '../../movies/now-playing.interface';
 export class GetNowPlayingMoviesUsecaseService {
   constructor(private moviesGateway: MoviesGateway) {}
 
-  invoke(): Observable<NowPlaying> {
-    return this.moviesGateway.getNowPlayingMovies().pipe(catchError((error) => of(error)));
+  invoke(page: number): Observable<NowPlaying> {
+    return this.moviesGateway.getNowPlayingMovies(page).pipe(catchError((error) => of(error)));
   }
 }

@@ -3,7 +3,7 @@
   "env": {
     "es2020": true
   },
-  "ignorePatterns": ["projects/**/*", "dist", "coverage", "polyfills"],
+  "ignorePatterns": ["bootstrap.ts", "main.ts", "dist", "coverage", "polyfills"],
   "plugins": ["prettier"],
   "overrides": [
     {
@@ -12,16 +12,12 @@
         "project": "./tsconfig.json",
         "createDefaultProgram": true
       },
-      "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:prettier/recommended"
-      ],
+      "extends": ["plugin:@angular-eslint/recommended", "plugin:@angular-eslint/template/process-inline-templates", "plugin:prettier/recommended"],
       "rules": {
         "@angular-eslint/component-selector": [
           "error",
           {
-            "prefix": "svn",
+            "prefix": "app",
             "style": "kebab-case",
             "type": "element"
           }
@@ -29,7 +25,7 @@
         "@angular-eslint/directive-selector": [
           "error",
           {
-            "prefix": "svn",
+            "prefix": "app",
             "style": "camelCase",
             "type": "attribute"
           }

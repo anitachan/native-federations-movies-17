@@ -38,7 +38,7 @@ const routes: Routes = [
         type: 'manifest',
         remoteName: 'app3-favorites',
         exposedModule: './Module',
-      }).then((m) => m.FavoritesModule),
+      }).then((m) => m.UiModule),
   },
   { path: '**', component: DashboardComponent },
 ];

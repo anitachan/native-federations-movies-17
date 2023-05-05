@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, forkJoin, map } from 'rxjs';
 import { Movie, MovieDetail } from 'shared-lib';
-import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
-import { environment } from '../../../environments/environment';
+import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-favorites',

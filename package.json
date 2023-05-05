@@ -16,7 +16,7 @@
     "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js",
     "build:lib": "ng build shared-lib",
     "prepare": "husky install",
-    "lint-all": "eslint --fix --ext .ts projects/app2-details"
+    "lint-all": "eslint --fix --ext .ts projects/host projects/app2-details projects/app3-favorites projects/app4-cast"
   },
   "private": true,
   "dependencies": {

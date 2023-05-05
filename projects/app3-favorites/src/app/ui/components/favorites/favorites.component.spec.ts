@@ -5,7 +5,8 @@ import { MockComponent, ngMocks } from 'ng-mocks';
 import { of } from 'rxjs';
 import { MoviesGridComponent } from 'shared-lib';
 import { FavoritesComponent } from './favorites.component';
-import { CustomMoviesService } from '../../infrastructure/custom-movies.service';
+import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
+import { THREE } from '../../utils/constants/number.constants';
 
 describe('FavoritesComponent', () => {
   let component: FavoritesComponent;
@@ -132,12 +133,12 @@ describe('FavoritesComponent', () => {
 
     const mockMoviesGridComponent = ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
 
-    favoriteMovies.forEach(movie => {
+    favoriteMovies.forEach((movie) => {
       expect(mockCustomMoviesService.getMovie).toHaveBeenCalledWith(movie.id);
     });
 
     expect(mockCustomMoviesService.getMovie).toHaveBeenCalledTimes(favoriteMovies.length);
     expect(mockMoviesGridComponent.movies).toEqual([mapperMovie, mapperMovie, mapperMovie]);
-    expect(mockMoviesGridComponent.columns).toEqual(3);
+    expect(mockMoviesGridComponent.columns).toEqual(THREE);
   });
 });

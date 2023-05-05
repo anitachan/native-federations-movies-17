@@ -42,7 +42,7 @@ export class SharedLibModule {
       ngModule: SharedLibModule,
       providers: [
         ...DEFAULT_PROVIDERS,
-        ...conf.infrastructures!.map(x => {
+        ...conf.infrastructures!.map((x) => {
           return { provide: x.gateway, useClass: x.implementation };
         }),
         { provide: ENDPOINTS_CONFIG, useValue: conf.endpoints },

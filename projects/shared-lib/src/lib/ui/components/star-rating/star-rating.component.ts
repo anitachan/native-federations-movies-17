@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FIVE, ONE, ZERO } from '../../utils/constants/number.constants';
 
 @Component({
   selector: 'app-star-rating',
@@ -6,10 +7,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./star-rating.component.scss'],
 })
 export class StarRatingComponent implements OnInit {
-  @Input('rating') rating: number = 0;
-  @Input('starCount') starCount: number = 5;
-  @Input('color') color: string = 'accent';
-  @Input('showVotes') showVotes: boolean = false;
+  @Input() rating: number = ZERO;
+  @Input() starCount: number = FIVE;
+  @Input() color: string = 'accent';
+  @Input() showVotes: boolean = false;
 
   ratingArr: number[] = [];
 
@@ -17,14 +18,10 @@ export class StarRatingComponent implements OnInit {
 
   ngOnInit(): void {
     this.rating = Math.round(this.rating);
-    this.ratingArr = Array.from(new Array(this.starCount), (x, i) => i + 1);
+    this.ratingArr = Array.from(new Array(this.starCount), (x, i) => i + ONE);
   }
 
   showIcon(index: number) {
-    if (Math.round(this.rating) >= index + 1) {
-      return 'star';
-    } else {
-      return 'star_border';
-    }
+    return Math.round(this.rating) >= index + ONE ? 'star' : 'star_border';
   }
 }

@@ -9,6 +9,7 @@ import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTooltipHarness } from '@angular/material/tooltip/testing';
 import { MatButtonModule } from '@angular/material/button';
+import { TEN } from '../../utils/constants/number.constants';
 
 describe('StarRatingComponent', () => {
   let component: StarRatingComponent;
@@ -36,15 +37,15 @@ describe('StarRatingComponent', () => {
   it('should set the correct icon', async () => {
     const buttons = await loader.getAllHarnesses(MatButtonHarness);
     const icons = await loader.getAllHarnesses(MatIconHarness);
-    const names = await parallel(() => icons.map(icon => icon.getName()));
+    const names = await parallel(() => icons.map((icon) => icon.getName()));
 
-    expect(buttons.length).toBe(10);
+    expect(buttons.length).toBe(TEN);
     expect(names).toEqual(['star', 'star', 'star', 'star', 'star', 'star', 'star', 'star_border', 'star_border', 'star_border']);
   });
 
   it('should load all tooltip harnesses', async () => {
     const tooltips = await loader.getAllHarnesses(MatTooltipHarness);
-    expect(tooltips.length).toBe(10);
+    expect(tooltips.length).toBe(TEN);
   });
 
   it('should show the correct text in tooltip', async () => {

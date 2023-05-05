@@ -8,9 +8,8 @@ describe('SharedLibComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SharedLibComponent ]
-    })
-    .compileComponents();
+      declarations: [SharedLibComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SharedLibComponent);
     component = fixture.componentInstance;

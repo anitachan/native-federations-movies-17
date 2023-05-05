@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { MoviesService } from './movies.service';
 import { MOVIES_SERVICE_ENDPOINTS } from './movies.service.configuration';
+import { SEVEN, EIGHT, ONE, TWO, THREE, FOUR, FIVE, SIX, NINE } from '../../domain/helpers/constants/number.constants';
 
 describe('MoviesService', () => {
   let service: MoviesService;
@@ -18,7 +19,7 @@ describe('MoviesService', () => {
       {
         adult: false,
         backdrop_path: '/t9nyF3r0WAlJ7Kr6xcRYI4jr9jm.jpg',
-        genre_ids: [878, 28],
+        genre_ids: [SEVEN, EIGHT],
         id: 580489,
         original_language: 'en',
         original_title: 'Venom: Let There Be Carnage',
@@ -35,7 +36,7 @@ describe('MoviesService', () => {
       {
         adult: false,
         backdrop_path: '/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg',
-        genre_ids: [35, 28, 12, 878],
+        genre_ids: [ONE, TWO, THREE, FOUR],
         id: 550988,
         original_language: 'en',
         original_title: 'Free Guy',
@@ -52,7 +53,7 @@ describe('MoviesService', () => {
       {
         adult: false,
         backdrop_path: '/aO9Nnv9GdwiPdkNO79TISlQ5bbG.jpg',
-        genre_ids: [28, 12],
+        genre_ids: [FIVE, SIX],
         id: 568620,
         original_language: 'en',
         original_title: 'Snake Eyes: G.I. Joe Origins',
@@ -69,7 +70,7 @@ describe('MoviesService', () => {
       {
         adult: false,
         backdrop_path: '/kTOheVmqSBDIRGrQLv2SiSc89os.jpg',
-        genre_ids: [16, 35, 10751],
+        genre_ids: [SEVEN, EIGHT, NINE],
         id: 639721,
         original_language: 'en',
         original_title: 'The Addams Family 2',
@@ -623,9 +624,9 @@ describe('MoviesService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get now playing movies', done => {
+  it('should get now playing movies', (done) => {
     const response = service.getNowPlayingMovies();
-    const subscription = response.subscribe(data => {
+    const subscription = response.subscribe((data) => {
       expect(data).toBe(mockMoviesNowPlayingData);
       done();
     });
@@ -636,10 +637,10 @@ describe('MoviesService', () => {
     subscription.unsubscribe();
   });
 
-  it('should get getMovie by Id', done => {
+  it('should get getMovie by Id', (done) => {
     const movieId = 'movieId';
     const response = service.getMovie(movieId);
-    const subscription = response.subscribe(data => {
+    const subscription = response.subscribe((data) => {
       expect(data).toBe(mockMovieData);
       done();
     });
@@ -650,9 +651,9 @@ describe('MoviesService', () => {
     subscription.unsubscribe();
   });
 
-  it('should genres movie', done => {
+  it('should genres movie', (done) => {
     const response = service.getGenreMovies();
-    const subscription = response.subscribe(data => {
+    const subscription = response.subscribe((data) => {
       expect(data).toBe(mockGenresData);
       done();
     });
@@ -663,10 +664,10 @@ describe('MoviesService', () => {
     subscription.unsubscribe();
   });
 
-  it('should get getVideoMovie by Id', done => {
+  it('should get getVideoMovie by Id', (done) => {
     const movieId = 'movieId';
     const response = service.getVideoMovie(movieId);
-    const subscription = response.subscribe(data => {
+    const subscription = response.subscribe((data) => {
       expect(data).toBe(mockVideoMovieData);
       done();
     });
@@ -677,10 +678,10 @@ describe('MoviesService', () => {
     subscription.unsubscribe();
   });
 
-  it('should get getCastMovie by Id', done => {
+  it('should get getCastMovie by Id', (done) => {
     const movieId = 'movieId';
     const response = service.getCastMovie(movieId);
-    const subscription = response.subscribe(data => {
+    const subscription = response.subscribe((data) => {
       expect(data).toBe(mockCastData);
       done();
     });

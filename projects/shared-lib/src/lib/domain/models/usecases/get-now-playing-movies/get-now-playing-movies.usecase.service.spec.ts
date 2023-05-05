@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { GetNowPlayingMoviesUsecaseService } from './get-now-playing-movies.usecase.service';
 import { MoviesGateway } from '../../movies/movies.gateway';
 import { of, throwError } from 'rxjs';
+import { SEVEN, EIGHT, ONE, TWO, THREE, FOUR, FIVE, SIX, NINE } from '../../../helpers/constants/number.constants';
 
 describe('GetNowPlayingMoviesUsecaseService', () => {
   let useCase: GetNowPlayingMoviesUsecaseService;
@@ -17,7 +18,7 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
       {
         adult: false,
         backdrop_path: '/t9nyF3r0WAlJ7Kr6xcRYI4jr9jm.jpg',
-        genre_ids: [878, 28],
+        genre_ids: [SEVEN, EIGHT],
         id: 580489,
         original_language: 'en',
         original_title: 'Venom: Let There Be Carnage',
@@ -34,7 +35,7 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
       {
         adult: false,
         backdrop_path: '/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg',
-        genre_ids: [35, 28, 12, 878],
+        genre_ids: [ONE, TWO, THREE, FOUR],
         id: 550988,
         original_language: 'en',
         original_title: 'Free Guy',
@@ -51,7 +52,7 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
       {
         adult: false,
         backdrop_path: '/aO9Nnv9GdwiPdkNO79TISlQ5bbG.jpg',
-        genre_ids: [28, 12],
+        genre_ids: [FIVE, SIX],
         id: 568620,
         original_language: 'en',
         original_title: 'Snake Eyes: G.I. Joe Origins',
@@ -68,7 +69,7 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
       {
         adult: false,
         backdrop_path: '/kTOheVmqSBDIRGrQLv2SiSc89os.jpg',
-        genre_ids: [16, 35, 10751],
+        genre_ids: [SEVEN, EIGHT, NINE],
         id: 639721,
         original_language: 'en',
         original_title: 'The Addams Family 2',

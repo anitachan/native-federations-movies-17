@@ -11,6 +11,7 @@ import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { Movie } from '../../../domain/models/movies/now-playing.interface';
+import { EIGHT, FIVE, FOUR, NINE, ONE, ONE_HUNDRED_AND_THIRTY, SEVEN, SIX, THREE, TWO, ZERO } from '../../utils/constants/number.constants';
 
 describe('MoviesGridComponent', () => {
   let component: MoviesGridComponent;
@@ -21,7 +22,7 @@ describe('MoviesGridComponent', () => {
     {
       adult: false,
       backdrop_path: '/t9nyF3r0WAlJ7Kr6xcRYI4jr9jm.jpg',
-      genre_ids: [878, 28],
+      genre_ids: [ONE, TWO],
       id: 580489,
       original_title: 'Venom: Let There Be Carnage',
       overview:
@@ -36,7 +37,7 @@ describe('MoviesGridComponent', () => {
     {
       adult: false,
       backdrop_path: '/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg',
-      genre_ids: [35, 28, 12, 878],
+      genre_ids: [THREE, FOUR, FIVE],
       id: 550988,
       original_title: 'Free Guy',
       overview:
@@ -51,7 +52,7 @@ describe('MoviesGridComponent', () => {
     {
       adult: false,
       backdrop_path: '/aO9Nnv9GdwiPdkNO79TISlQ5bbG.jpg',
-      genre_ids: [28, 12],
+      genre_ids: [SIX, SEVEN],
       id: 568620,
       original_title: 'Snake Eyes: G.I. Joe Origins',
       overview:
@@ -66,7 +67,7 @@ describe('MoviesGridComponent', () => {
     {
       adult: false,
       backdrop_path: '/kTOheVmqSBDIRGrQLv2SiSc89os.jpg',
-      genre_ids: [16, 35, 10751],
+      genre_ids: [EIGHT, NINE],
       id: 639721,
       original_title: 'The Addams Family 2',
       overview:
@@ -99,7 +100,7 @@ describe('MoviesGridComponent', () => {
   it('should be able to load grid-list harnesses with columns', async () => {
     component.columns = 3;
     const harnesses = await loader.getHarness(MatGridListHarness);
-    expect(await harnesses.getColumns()).toBe(3);
+    expect(await harnesses.getColumns()).toBe(THREE);
   });
 
   it('should set the data of the movie', async () => {
@@ -108,8 +109,8 @@ describe('MoviesGridComponent', () => {
     const grids = await loader.getAllHarnesses(MatGridTileHarness);
     expect(grids.length).toBe(mockMovies.length);
 
-    expect(await parallel(() => grids.map(async grid => (await grid.host()).text()))).toEqual(
-      mockMovies.map(movie => `${movie.original_title}${movie.overview.slice(0, 130)}... See More`)
+    expect(await parallel(() => grids.map(async (grid) => (await grid.host()).text()))).toEqual(
+      mockMovies.map((movie) => `${movie.original_title}${movie.overview.slice(ZERO, ONE_HUNDRED_AND_THIRTY)}... See More`)
     );
   });
 
@@ -120,12 +121,12 @@ describe('MoviesGridComponent', () => {
 
     expect(
       await parallel(() =>
-        grids.map(async grid => {
+        grids.map(async (grid) => {
           const button = await grid.getHarness(MatButtonHarness);
           const host = await button.host();
           return await host.getAttribute('ng-reflect-router-link');
         })
       )
-    ).toEqual(mockMovies.map(movie => `/detail,${movie.id}`));
+    ).toEqual(mockMovies.map((movie) => `/detail,${movie.id}`));
   });
 });

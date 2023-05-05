@@ -28,7 +28,7 @@ const routes: Routes = [
         type: 'manifest',
         remoteName: 'app2-details',
         exposedModule: './Module',
-      }).then((m) => m.DetailsModule),
+      }).then((m) => m.UiModule),
   },
   // { path: 'search/:query', component: SearchComponent },
   {

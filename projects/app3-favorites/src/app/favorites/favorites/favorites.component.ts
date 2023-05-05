@@ -23,7 +23,7 @@ export class FavoritesComponent implements OnInit {
   getFavoritesMovies() {
     const favoritesLocalStorage: [{ id: string }] = JSON.parse(localStorage.getItem('favorites')!) || [];
 
-    let observable: Array<Observable<MovieDetail>> = [];
+    const observable: Array<Observable<MovieDetail>> = [];
 
     favoritesLocalStorage.forEach(({ id }, i: number) => {
       observable.push(this.customMoviesService.getMovie(id));
@@ -33,8 +33,8 @@ export class FavoritesComponent implements OnInit {
   }
 
   private addFavorites(result: MovieDetail[]) {
-    let favoritesList: Movie[] = [];
-    result.forEach(item => {
+    const favoritesList: Movie[] = [];
+    result.forEach((item) => {
       favoritesList.push(this.getMovieData(item));
     });
     return favoritesList;

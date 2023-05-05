@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Cast, Credits, Genres, MovieDetail, MovieVideos, MoviesGateway, NowPlaying } from 'shared-lib';
 import { environment } from '../../environments/environment';
+import { ONE } from '../ui/utils/constants/number.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomMoviesService extends MoviesGateway {
-  private page = 1;
+  private page = ONE;
   private tmdbUrl = environment.tmdbUrl;
   private tmbdApiKey = environment.tmbdApiKey;
 
@@ -38,6 +39,6 @@ export class CustomMoviesService extends MoviesGateway {
   }
   getCastMovie(movieId: string): Observable<Cast[]> {
     const url: string = `${this.tmdbUrl}movie/${movieId}/credits`;
-    return this.httpClient.get<Credits>(url, { params: this.params }).pipe(map(resp => resp.cast));
+    return this.httpClient.get<Credits>(url, { params: this.params }).pipe(map((resp) => resp.cast));
   }
 }

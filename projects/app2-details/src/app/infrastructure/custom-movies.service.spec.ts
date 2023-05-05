@@ -446,10 +446,10 @@ describe('CustomMoviesService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get and return movie detail with the movie id', done => {
+  it('should get and return movie detail with the movie id', (done) => {
     const movieId = 'movieId';
     const url: string = `${tmdbUrl}movie/${movieId}?api_key=${service.params.api_key}&page=${service.params.page}`;
-    const subscription = service.getMovie(movieId).subscribe(response => {
+    const subscription = service.getMovie(movieId).subscribe((response) => {
       expect(response).toBeTruthy();
       expect(response).toEqual(mockMovieData);
       done();
@@ -464,10 +464,10 @@ describe('CustomMoviesService', () => {
     subscription.unsubscribe();
   });
 
-  it('should get and return movie videos with the movie id', done => {
+  it('should get and return movie videos with the movie id', (done) => {
     const movieId = 'movieId';
     const url: string = `${tmdbUrl}movie/${movieId}/videos?api_key=${service.params.api_key}&page=${service.params.page}`;
-    service.getVideoMovie(movieId).subscribe(response => {
+    const subscription = service.getVideoMovie(movieId).subscribe((response) => {
       expect(response).toBeTruthy();
       expect(response).toEqual(mockVideoMovieData);
       done();
@@ -479,12 +479,13 @@ describe('CustomMoviesService', () => {
     expect(httpRequest.method).toEqual('GET');
 
     mockHttp.flush(mockVideoMovieData);
+    subscription.unsubscribe();
   });
 
-  it('should get and return movie cast with the movie id', done => {
+  it('should get and return movie cast with the movie id', (done) => {
     const movieId = 'movieId';
     const url: string = `${tmdbUrl}movie/${movieId}/credits?api_key=${service.params.api_key}&page=${service.params.page}`;
-    service.getCastMovie(movieId).subscribe(response => {
+    const subscription = service.getCastMovie(movieId).subscribe((response) => {
       expect(response).toBeTruthy();
       expect(response).toEqual(mockCastData.cast);
       done();
@@ -496,6 +497,7 @@ describe('CustomMoviesService', () => {
     expect(httpRequest.method).toEqual('GET');
 
     mockHttp.flush(mockCastData);
+    subscription.unsubscribe();
   });
 
   it('should return error when getGenreMovies is called', () => {

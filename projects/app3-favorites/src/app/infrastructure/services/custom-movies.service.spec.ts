@@ -106,10 +106,10 @@ describe('CustomMoviesService', () => {
     expect(() => service.getVideoMovie('movieID')).toThrow('Method not implemented.');
   });
 
-  it('should get and return movie detail with the movie id', done => {
+  it('should get and return movie detail with the movie id', (done) => {
     const movieId = 'movieId';
     const url: string = `${tmdbUrl}movie/${movieId}?api_key=${service.params.api_key}&page=${service.params.page}`;
-    const subscription = service.getMovie(movieId).subscribe(response => {
+    const subscription = service.getMovie(movieId).subscribe((response) => {
       expect(response).toBeTruthy();
       expect(response).toEqual(mockMovieData);
       done();

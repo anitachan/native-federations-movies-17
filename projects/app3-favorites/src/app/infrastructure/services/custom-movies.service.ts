@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cast, Genres, MovieDetail, MovieVideos, MoviesGateway, NowPlaying } from 'shared-lib';
-import { environment } from '../../environments/environment';
+import { ONE } from '../../ui/utils/constants/number.constants';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomMoviesService extends MoviesGateway {
-  private page = 1;
+  private page = ONE;
   private tmdbUrl = environment.tmdbUrl;
   private tmbdApiKey = environment.tmbdApiKey;
 

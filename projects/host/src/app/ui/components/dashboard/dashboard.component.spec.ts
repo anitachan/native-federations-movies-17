@@ -5,12 +5,13 @@ import { MockProvider, ngMocks, MockComponent } from 'ng-mocks';
 import { MoviesGridComponent } from 'shared-lib';
 import { of } from 'rxjs';
 import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
+import { SEVEN, EIGHT, ONE, TWO, THREE, FOUR, FIVE, SIX, NINE } from '../../../infrastructure/constants/number.constants';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
-  const moviesNowPlayingData = {
+  const mockMoviesNowPlayingData = {
     dates: {
       maximum: '2021-10-19',
       minimum: '2021-09-01',
@@ -20,7 +21,7 @@ describe('DashboardComponent', () => {
       {
         adult: false,
         backdrop_path: '/t9nyF3r0WAlJ7Kr6xcRYI4jr9jm.jpg',
-        genre_ids: [878, 28],
+        genre_ids: [SEVEN, EIGHT],
         id: 580489,
         original_language: 'en',
         original_title: 'Venom: Let There Be Carnage',
@@ -37,7 +38,7 @@ describe('DashboardComponent', () => {
       {
         adult: false,
         backdrop_path: '/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg',
-        genre_ids: [35, 28, 12, 878],
+        genre_ids: [ONE, TWO, THREE, FOUR],
         id: 550988,
         original_language: 'en',
         original_title: 'Free Guy',
@@ -54,7 +55,7 @@ describe('DashboardComponent', () => {
       {
         adult: false,
         backdrop_path: '/aO9Nnv9GdwiPdkNO79TISlQ5bbG.jpg',
-        genre_ids: [28, 12],
+        genre_ids: [FIVE, SIX],
         id: 568620,
         original_language: 'en',
         original_title: 'Snake Eyes: G.I. Joe Origins',
@@ -71,7 +72,7 @@ describe('DashboardComponent', () => {
       {
         adult: false,
         backdrop_path: '/kTOheVmqSBDIRGrQLv2SiSc89os.jpg',
-        genre_ids: [16, 35, 10751],
+        genre_ids: [SEVEN, EIGHT, NINE],
         id: 639721,
         original_language: 'en',
         original_title: 'The Addams Family 2',
@@ -91,7 +92,7 @@ describe('DashboardComponent', () => {
   };
 
   const mockCustomMoviesService = {
-    getNowPlayingMovies: jest.fn().mockReturnValue(of(moviesNowPlayingData)),
+    getNowPlayingMovies: jest.fn().mockReturnValue(of(mockMoviesNowPlayingData)),
   };
 
   beforeEach(async () => {
@@ -113,7 +114,7 @@ describe('DashboardComponent', () => {
     const mockMoviesGridComponent = ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
 
     expect(mockCustomMoviesService.getNowPlayingMovies).toHaveBeenCalledWith();
-    expect(mockMoviesGridComponent.movies).toEqual(moviesNowPlayingData.results);
-    expect(mockMoviesGridComponent.columns).toEqual(2);
+    expect(mockMoviesGridComponent.movies).toEqual(mockMoviesNowPlayingData.results);
+    expect(mockMoviesGridComponent.columns).toEqual(TWO);
   });
 });

@@ -74,7 +74,7 @@ describe('CastComponent', () => {
   });
 
   it('should show 3 actors cards', async () => {
-    let cards = [];
+    const cards = [];
 
     for (const actor of cast) {
       const card = await loader.getHarness(

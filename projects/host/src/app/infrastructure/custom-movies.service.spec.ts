@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { CustomMoviesService } from './custom-movies.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../../environments/environment';
+import { EIGHT, FIVE, FOUR, NINE, ONE, SEVEN, SIX, THREE, TWO } from './constants/number.constants';
 
 describe('CustomMoviesService', () => {
   let service: CustomMoviesService;
@@ -18,7 +19,7 @@ describe('CustomMoviesService', () => {
       {
         adult: false,
         backdrop_path: '/t9nyF3r0WAlJ7Kr6xcRYI4jr9jm.jpg',
-        genre_ids: [878, 28],
+        genre_ids: [SEVEN, EIGHT],
         id: 580489,
         original_language: 'en',
         original_title: 'Venom: Let There Be Carnage',
@@ -35,7 +36,7 @@ describe('CustomMoviesService', () => {
       {
         adult: false,
         backdrop_path: '/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg',
-        genre_ids: [35, 28, 12, 878],
+        genre_ids: [ONE, TWO, THREE, FOUR],
         id: 550988,
         original_language: 'en',
         original_title: 'Free Guy',
@@ -52,7 +53,7 @@ describe('CustomMoviesService', () => {
       {
         adult: false,
         backdrop_path: '/aO9Nnv9GdwiPdkNO79TISlQ5bbG.jpg',
-        genre_ids: [28, 12],
+        genre_ids: [FIVE, SIX],
         id: 568620,
         original_language: 'en',
         original_title: 'Snake Eyes: G.I. Joe Origins',
@@ -69,7 +70,7 @@ describe('CustomMoviesService', () => {
       {
         adult: false,
         backdrop_path: '/kTOheVmqSBDIRGrQLv2SiSc89os.jpg',
-        genre_ids: [16, 35, 10751],
+        genre_ids: [SEVEN, EIGHT, NINE],
         id: 639721,
         original_language: 'en',
         original_title: 'The Addams Family 2',
@@ -98,9 +99,9 @@ describe('CustomMoviesService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get and return now playing movies', done => {
+  it('should get and return now playing movies', (done) => {
     const url: string = `${environment.tmdbUrl}movie/now_playing?api_key=${service.params.api_key}&page=${service.params.page}`;
-    const subscription = service.getNowPlayingMovies().subscribe(response => {
+    const subscription = service.getNowPlayingMovies().subscribe((response) => {
       expect(response).toBeTruthy();
       expect(response).toEqual(mockMoviesNowPlayingData);
       done();

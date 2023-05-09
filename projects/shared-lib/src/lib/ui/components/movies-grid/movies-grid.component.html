@@ -1,23 +1,25 @@
-<mat-grid-list [cols]="columns" rowHeight="2:1">
-  <mat-grid-tile *ngFor="let movie of movies">
-    <div [ngStyle]="{
+<div infinite-scroll (scrolled)="onScrollDown()">
+  <mat-grid-list [cols]="columns" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let movie of listMovies">
+      <div
+        [ngStyle]="{
         'background-size': 'cover',
         'background-image':
           'url(' + (movie.backdrop_path | poster: urlImage: 'original') + ')',
         height: '100%',
         width: '100%'
-      }">
-      <div class="movie-description">
-        <h3>{{ movie.title }}</h3>
-        <p>{{ movie.overview | slice: 0:130 }}...</p>
+      }"
+      >
+        <div class="movie-description">
+          <h3>{{ movie.title }}</h3>
+          <p>{{ movie.overview | slice: 0:130 }}...</p>
 
-        <div class="see-more">
-          <app-star-rating [rating]="movie.vote_average" [starCount]="10" color="yellow"></app-star-rating>
-          <button mat-raised-button color="primary" [routerLink]="['/detail', movie.id]">
-            See More
-          </button>
+          <div class="see-more">
+            <app-star-rating [rating]="movie.vote_average" [starCount]="10" color="yellow"></app-star-rating>
+            <button mat-raised-button color="primary" [routerLink]="['/detail', movie.id]">See More</button>
+          </div>
         </div>
       </div>
-    </div>
-  </mat-grid-tile>
-</mat-grid-list>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

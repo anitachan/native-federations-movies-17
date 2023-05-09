@@ -12,6 +12,7 @@ import { DEFAULT_CONFIGURATION, DEFAULT_PROVIDERS, ENDPOINTS_CONFIG, ISharedLibC
 import { MoviesGridComponent } from './ui/components/movies-grid/movies-grid.component';
 import { StarRatingComponent } from './ui/components/star-rating/star-rating.component';
 import { PosterPipe } from './ui/pipes/poster.pipe';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [SharedLibComponent, MoviesGridComponent, StarRatingComponent, PosterPipe],
@@ -25,6 +26,7 @@ import { PosterPipe } from './ui/pipes/poster.pipe';
     MatTooltipModule,
     MatGridListModule,
     MatIconModule,
+    InfiniteScrollModule,
   ],
   exports: [SharedLibComponent, MoviesGridComponent, StarRatingComponent, PosterPipe],
 })

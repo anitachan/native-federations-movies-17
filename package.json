@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest --collectCoverage",
     "test:WatchAll": "jest --watchAll",
-    "test:host": "jest --collectCoverage --rootDir='projects/host'",
+    "test:host": "jest --collectCoverage projects/host/jest.config.js",
     "test:app2-details": "jest --collectCoverage --rootDir='projects/app2-details'",
     "test:app3-favorites": "jest --collectCoverage --rootDir='projects/app3-favorites'",
     "test:app4-cast": "jest --collectCoverage --rootDir='projects/app4-cast'",
@@ -32,6 +32,7 @@
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
+    "ngx-infinite-scroll": "^14.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

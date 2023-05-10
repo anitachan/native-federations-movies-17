@@ -3,9 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DashboardComponent } from './dashboard.component';
 import { MockProvider, ngMocks, MockComponent } from 'ng-mocks';
 import { MoviesGridComponent } from 'shared-lib';
-import { of } from 'rxjs';
-import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
+import { of, pipe } from 'rxjs';
+
 import { SEVEN, EIGHT, ONE, TWO, THREE, FOUR, FIVE, SIX, NINE } from '../../../infrastructure/constants/number.constants';
+import { CustomMoviesService } from '../../../infrastructure/services/custom-movies.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -110,11 +111,14 @@ describe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call movie service when the component init and send the child component the correct data', () => {
+  it('should call movie service when the component init and send the child component the correct data', (done) => {
     const mockMoviesGridComponent = ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
 
-    expect(mockCustomMoviesService.getNowPlayingMovies).toHaveBeenCalledWith();
-    expect(mockMoviesGridComponent.movies).toEqual(mockMoviesNowPlayingData.results);
+    mockMoviesGridComponent.movies$.subscribe((movies) => {
+      expect(movies).toEqual(mockMoviesNowPlayingData.results);
+      done();
+    });
+    expect(mockCustomMoviesService.getNowPlayingMovies).toHaveBeenCalledWith(ONE);
     expect(mockMoviesGridComponent.columns).toEqual(TWO);
   });
 });

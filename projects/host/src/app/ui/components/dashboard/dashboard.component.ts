@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
 import { Movie } from 'shared-lib';
 import { environment } from '../../../../environments/environment';
-import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
 import { ONE } from '../../../infrastructure/constants/number.constants';
+import { CustomMoviesService } from '../../../infrastructure/services/custom-movies.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,17 +20,17 @@ export class DashboardComponent implements OnInit {
   constructor(private customMoviesService: CustomMoviesService) {}
 
   ngOnInit(): void {
-    this.getTrendingMovies(this.currentPage);
+    this.getTrendingMovies();
   }
 
-  getTrendingMovies(page: number) {
-    this.movies$ = this.customMoviesService.getNowPlayingMovies(page).pipe(
+  getTrendingMovies() {
+    this.movies$ = this.customMoviesService.getNowPlayingMovies(this.currentPage).pipe(
       map(({ results }) => results),
       tap(() => this.currentPage++)
     );
   }
 
-  loadMore(page: number) {
-    this.getTrendingMovies(this.currentPage);
+  loadMore() {
+    this.getTrendingMovies();
   }
 }

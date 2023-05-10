@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { CustomMoviesService } from './custom-movies.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { environment } from '../../environments/environment';
-import { EIGHT, FIVE, FOUR, NINE, ONE, SEVEN, SIX, THREE, TWO } from './constants/number.constants';
+import { environment } from '../../../environments/environment';
+import { EIGHT, FIVE, FOUR, NINE, ONE, SEVEN, SIX, THREE, TWO } from '../constants/number.constants';
 
 describe('CustomMoviesService', () => {
   let service: CustomMoviesService;
@@ -100,8 +100,9 @@ describe('CustomMoviesService', () => {
   });
 
   it('should get and return now playing movies', (done) => {
-    const url: string = `${environment.tmdbUrl}movie/now_playing?api_key=${service.params.api_key}&page=${service.params.page}`;
-    const subscription = service.getNowPlayingMovies().subscribe((response) => {
+    const { api_key, page } = service.getParams(ONE);
+    const url: string = `${environment.tmdbUrl}movie/now_playing?api_key=${api_key}&page=${page}`;
+    const subscription = service.getNowPlayingMovies(ONE).subscribe((response) => {
       expect(response).toBeTruthy();
       expect(response).toEqual(mockMoviesNowPlayingData);
       done();

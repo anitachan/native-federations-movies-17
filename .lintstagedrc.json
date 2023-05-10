@@ -1,5 +1,5 @@
 {
-  "*.ts": ["eslint --fix"],
+  "*.ts": ["eslint --fix", "npm run test:staged"],
   "*.html": ["eslint --fix"],
   "*.scss": "prettier --write"
 }

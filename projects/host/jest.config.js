@@ -1,3 +1,6 @@
-const config = require('../jest.config');
+const config = require('../../jest-base.config');
 
-module.exports = config;
+module.exports = {
+  displayName: 'host',
+  ...config,
+};

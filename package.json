@@ -8,14 +8,15 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest --collectCoverage",
     "test:WatchAll": "jest --watchAll",
-    "test:host": "jest --collectCoverage projects/host/jest.config.js",
-    "test:app2-details": "jest --collectCoverage --rootDir='projects/app2-details'",
-    "test:app3-favorites": "jest --collectCoverage --rootDir='projects/app3-favorites'",
-    "test:app4-cast": "jest --collectCoverage --rootDir='projects/app4-cast'",
-    "test:shared-lib": "jest --collectCoverage --rootDir='projects/shared-lib'",
+    "test:host": "jest --collectCoverage -c projects/host/jest.config.js",
+    "test:app2-details": "jest --collectCoverage -c projects/app2-details/jest.config.js",
+    "test:app3-favorites": "jest --collectCoverage -c projects/app3-favorites/jest.config.js",
+    "test:app4-cast": "jest --collectCoverage -c projects/app4-cast/jest.config.js",
+    "test:shared-lib": "jest --collectCoverage -c projects/shared-lib/jest.config.js",
     "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js",
     "build:lib": "ng build shared-lib",
     "prepare": "husky install",
+    "test:staged": "jest --coverage --bail --findRelatedTests --passWithNoTests",
     "lint-all": "eslint --fix --ext .ts projects/host projects/app2-details projects/app3-favorites projects/app4-cast projects/shared-lib"
   },
   "private": true,
@@ -60,6 +61,7 @@
     "ngx-build-plus": "^14.0.0",
     "prettier": "^2.8.7",
     "prettier-eslint": "^15.0.1",
+    "ts-jest": "^29.1.0",
     "typescript": "~4.7.2"
   }
 }

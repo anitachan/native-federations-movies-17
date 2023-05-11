@@ -114,11 +114,20 @@ describe('DashboardComponent', () => {
   it('should call movie service when the component init and send the child component the correct data', (done) => {
     const mockMoviesGridComponent = ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
 
-    mockMoviesGridComponent.movies$.subscribe((movies) => {
+    const subscription = mockMoviesGridComponent.movies$.subscribe((movies) => {
       expect(movies).toEqual(mockMoviesNowPlayingData.results);
       done();
     });
     expect(mockCustomMoviesService.getNowPlayingMovies).toHaveBeenCalledWith(ONE);
     expect(mockMoviesGridComponent.columns).toEqual(TWO);
+    subscription.unsubscribe();
+  });
+
+  it('should call ', () => {
+    jest.spyOn(component, 'getTrendingMovies');
+
+    component.loadMore();
+
+    expect(component.getTrendingMovies).toHaveBeenCalledWith();
   });
 });

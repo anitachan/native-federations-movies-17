@@ -9,4 +9,4 @@ export const SEVEN = 7;
 export const EIGHT = 8;
 export const NINE = 9;
 export const TEN = 10;
-export const ONE_HUNDRED_AND_THIRTY = 10;
+export const ONE_HUNDRED_AND_THIRTY = 130;

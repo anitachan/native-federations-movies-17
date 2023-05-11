@@ -5,7 +5,7 @@ import { MockComponent, ngMocks } from 'ng-mocks';
 import { of } from 'rxjs';
 import { MoviesGridComponent } from 'shared-lib';
 import { FavoritesComponent } from './favorites.component';
-import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
+import { CustomMoviesService } from '../../../infrastructure/services/custom-movies.service';
 import { THREE } from '../../utils/constants/number.constants';
 
 describe('FavoritesComponent', () => {
@@ -115,15 +115,19 @@ describe('FavoritesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should return an empty array when does not have favorites', async () => {
-    const mockMoviesGridComponent = fixture.debugElement.query(By.css('app-movies-grid'));
+  it('should return an empty array when does not have favorites', () => {
+    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
 
-    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(JSON.stringify(''));
+    component.getFavoritesMovies();
+    fixture.detectChanges();
 
-    expect(mockMoviesGridComponent).toBeFalsy();
+    const mockMoviesGridComponent = ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
+
+    expect(typeof mockMoviesGridComponent.movies$.subscribe).toBe('function');
+    expect(mockCustomMoviesService.getMovie).not.toHaveBeenCalled();
   });
 
-  it('should call 3 favorites movies', () => {
+  it('should call 3 favorites movies', (done) => {
     const favoriteMovies = [{ id: 'ABC123' }, { id: 'DEF123' }, { id: 'GHI123' }];
 
     jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(JSON.stringify(favoriteMovies));
@@ -133,12 +137,17 @@ describe('FavoritesComponent', () => {
 
     const mockMoviesGridComponent = ngMocks.find<MoviesGridComponent>('app-movies-grid').componentInstance;
 
+    const subscription = mockMoviesGridComponent.movies$.subscribe((movies) => {
+      expect(movies).toEqual([mapperMovie, mapperMovie, mapperMovie]);
+      done();
+    });
+
     favoriteMovies.forEach((movie) => {
       expect(mockCustomMoviesService.getMovie).toHaveBeenCalledWith(movie.id);
     });
 
     expect(mockCustomMoviesService.getMovie).toHaveBeenCalledTimes(favoriteMovies.length);
-    expect(mockMoviesGridComponent.movies).toEqual([mapperMovie, mapperMovie, mapperMovie]);
     expect(mockMoviesGridComponent.columns).toEqual(THREE);
+    subscription.unsubscribe();
   });
 });

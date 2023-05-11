@@ -12,6 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { Movie } from '../../../domain/models/movies/now-playing.interface';
 import { EIGHT, FIVE, FOUR, NINE, ONE, ONE_HUNDRED_AND_THIRTY, SEVEN, SIX, THREE, TWO, ZERO } from '../../utils/constants/number.constants';
+import { of } from 'rxjs';
 
 describe('MoviesGridComponent', () => {
   let component: MoviesGridComponent;
@@ -104,18 +105,18 @@ describe('MoviesGridComponent', () => {
   });
 
   it('should set the data of the movie', async () => {
-    component.movies = mockMovies;
+    component.movies$ = of(mockMovies);
 
     const grids = await loader.getAllHarnesses(MatGridTileHarness);
     expect(grids.length).toBe(mockMovies.length);
 
     expect(await parallel(() => grids.map(async (grid) => (await grid.host()).text()))).toEqual(
-      mockMovies.map((movie) => `${movie.original_title}${movie.overview.slice(ZERO, ONE_HUNDRED_AND_THIRTY)}... See More`)
+      mockMovies.map((movie) => `${movie.original_title}${movie.overview.slice(ZERO, ONE_HUNDRED_AND_THIRTY)}...See More`)
     );
   });
 
   it('should redirect to movie detail with id', async () => {
-    component.movies = mockMovies;
+    component.movies$ = of(mockMovies);
 
     const grids = await loader.getAllHarnesses(MatGridTileHarness);
 
@@ -128,5 +129,13 @@ describe('MoviesGridComponent', () => {
         })
       )
     ).toEqual(mockMovies.map((movie) => `/detail,${movie.id}`));
+  });
+
+  it('should emit when more movies is required', () => {
+    jest.spyOn(component.loadMore, 'emit');
+
+    component.onScrollDown();
+
+    expect(component.loadMore.emit).toHaveBeenCalledWith();
   });
 });

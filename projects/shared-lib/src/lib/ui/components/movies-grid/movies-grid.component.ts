@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Movie } from '../../../domain/models/movies/now-playing.interface';
-import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-movies-grid',

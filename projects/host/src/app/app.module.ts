@@ -11,7 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MoviesGateway, SharedLibModule } from 'shared-lib';
-import { CustomMoviesService } from './infrastructure/custom-movies.service';
+import { CustomMoviesService } from './infrastructure/services/custom-movies.service';
 import { DashboardComponent } from './ui/components/dashboard/dashboard.component';
 import { ToolbarComponent } from './ui/components/toolbar/toolbar.component';
 import { SidenavBarComponent } from './ui/components/sidenav-bar/sidenav-bar.component';

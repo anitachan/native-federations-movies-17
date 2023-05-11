@@ -625,7 +625,7 @@ describe('MoviesService', () => {
   });
 
   it('should get now playing movies', (done) => {
-    const response = service.getNowPlayingMovies();
+    const response = service.getNowPlayingMovies(ONE);
     const subscription = response.subscribe((data) => {
       expect(data).toBe(mockMoviesNowPlayingData);
       done();

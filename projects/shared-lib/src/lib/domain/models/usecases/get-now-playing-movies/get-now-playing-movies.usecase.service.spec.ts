@@ -104,10 +104,12 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
   });
 
   it('should return the correct data', (done) => {
-    useCase.invoke().subscribe((data) => {
+    const subscription = useCase.invoke(ONE).subscribe((data) => {
       expect(data).toEqual(mockMoviesNowPlayingData);
       done();
     });
+
+    subscription.unsubscribe();
   });
 
   it('should call invoke and return error', (done) => {
@@ -116,9 +118,10 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
     };
     jest.spyOn(mockMoviesGateway, 'getNowPlayingMovies').mockImplementationOnce(() => throwError(() => error));
 
-    useCase.invoke().subscribe((resp) => {
+    const subscription = useCase.invoke(ONE).subscribe((resp) => {
       expect(resp).toEqual(error);
       done();
     });
+    subscription.unsubscribe();
   });
 });

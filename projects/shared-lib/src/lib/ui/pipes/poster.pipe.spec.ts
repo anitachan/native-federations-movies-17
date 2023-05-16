@@ -13,6 +13,6 @@ describe('PosterPipe', () => {
   });
 
   it('transforms "abc" to default image', () => {
-    expect(pipe.transform('', '', '')).toBe('./assets/no-image.jpg');
+    expect(pipe.transform('', '', '')).toBe('./assets/images/no-image.jpg');
   });
 });

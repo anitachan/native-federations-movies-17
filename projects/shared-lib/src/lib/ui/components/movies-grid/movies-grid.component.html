@@ -1,3 +1,4 @@
+<app-loading [loading]="loading"></app-loading>
 <div infinite-scroll (scrolled)="onScrollDown()">
   <mat-grid-list [cols]="columns" rowHeight="2:1">
     <mat-grid-tile *ngFor="let movie of listMovies">

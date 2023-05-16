@@ -2,17 +2,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HarnessLoader, parallel } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatGridListHarness, MatGridTileHarness } from '@angular/material/grid-list/testing';
-import { MoviesGridComponent } from './movies-grid.component';
-import { MockPipe, MockComponent } from 'ng-mocks';
-import { PosterPipe } from '../../pipes/poster.pipe';
-import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatButtonHarness } from '@angular/material/button/testing';
-import { Movie } from '../../../domain/models/movies/now-playing.interface';
-import { EIGHT, FIVE, FOUR, NINE, ONE, ONE_HUNDRED_AND_THIRTY, SEVEN, SIX, THREE, TWO, ZERO } from '../../utils/constants/number.constants';
+import { MockComponents, MockPipe, ngMocks } from 'ng-mocks';
 import { of } from 'rxjs';
+import { Movie } from '../../../domain/models/movies/now-playing.interface';
+import { PosterPipe } from '../../pipes/poster.pipe';
+import { EIGHT, FIVE, FOUR, NINE, ONE, ONE_HUNDRED_AND_THIRTY, SEVEN, SIX, THREE, TWO, ZERO } from '../../utils/constants/number.constants';
+import { LoadingComponent } from '../loading/loading.component';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { MoviesGridComponent } from './movies-grid.component';
 
 describe('MoviesGridComponent', () => {
   let component: MoviesGridComponent;
@@ -84,7 +85,7 @@ describe('MoviesGridComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MoviesGridComponent, MockComponent(StarRatingComponent)],
+      declarations: [MoviesGridComponent, MockComponents(StarRatingComponent, LoadingComponent)],
       imports: [MatGridListModule, RouterTestingModule, MockPipe(PosterPipe)],
     }).compileComponents();
 

@@ -8,9 +8,11 @@ import { Movie } from '../../../domain/models/movies/now-playing.interface';
   styleUrls: ['./movies-grid.component.scss'],
 })
 export class MoviesGridComponent implements OnDestroy {
+  loading: boolean = false;
   listMovies: Movie[] = [];
   stopSubscribe$: Subject<void> = new Subject<void>();
   @Input() set movies$(movies: Observable<Movie[]>) {
+    this.loading = true;
     this.setData(movies);
   }
   @Input() columns: number;
@@ -29,6 +31,7 @@ export class MoviesGridComponent implements OnDestroy {
   private setData(movies: Observable<Movie[]>) {
     movies.pipe(takeUntil(this.stopSubscribe$)).subscribe((newMovies: Movie[]) => {
       this.listMovies = this.listMovies.concat(newMovies);
+      this.loading = false;
     });
   }
 }

@@ -8,7 +8,7 @@ export class PosterPipe implements PipeTransform {
     if (poster) {
       return `${url}${resolution}${poster}`;
     } else {
-      return './assets/no-image.jpg';
+      return './assets/images/no-image.jpg';
     }
   }
 }

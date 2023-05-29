@@ -1,26 +1,31 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { Movie } from '../../../domain/models/movies/now-playing.interface';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subject, map, takeUntil } from 'rxjs';
+import { Movie } from '../../../domain/movies/models/movies.interface';
+import { GetMoviesUsecaseService } from '../../../domain/movies/usecases/get-movies/get-movies.usecase.service';
+import { ONE } from '../../utils/constants/number.constants';
 
 @Component({
   selector: 'app-movies-grid',
   templateUrl: './movies-grid.component.html',
   styleUrls: ['./movies-grid.component.scss'],
 })
-export class MoviesGridComponent implements OnDestroy {
+export class MoviesGridComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   listMovies: Movie[] = [];
   stopSubscribe$: Subject<void> = new Subject<void>();
-  @Input() set movies$(movies: Observable<Movie[]>) {
-    this.loading = true;
-    this.setData(movies);
-  }
+  currentPage = ONE;
+  movies$: Observable<Movie[]>;
   @Input() columns: number;
   @Input() urlImage: string;
-  @Output() loadMore = new EventEmitter();
+
+  constructor(private getNowPlayingMoviesUsecaseService: GetMoviesUsecaseService) {}
+
+  ngOnInit(): void {
+    this.getTrendingMovies();
+  }
 
   onScrollDown() {
-    this.loadMore.emit();
+    this.getTrendingMovies();
   }
 
   ngOnDestroy(): void {
@@ -28,10 +33,13 @@ export class MoviesGridComponent implements OnDestroy {
     this.stopSubscribe$.complete();
   }
 
-  private setData(movies: Observable<Movie[]>) {
-    movies.pipe(takeUntil(this.stopSubscribe$)).subscribe((newMovies: Movie[]) => {
-      this.listMovies = this.listMovies.concat(newMovies);
-      this.loading = false;
-    });
+  getTrendingMovies() {
+    this.getNowPlayingMoviesUsecaseService
+      .invoke(this.currentPage)
+      .pipe(takeUntil(this.stopSubscribe$))
+      .subscribe((newMovies: Movie[]) => {
+        this.listMovies = this.listMovies.concat(newMovies);
+        this.currentPage++;
+      });
   }
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Cast, Credits, Genres, MovieDetail, MovieVideos, MoviesGateway, NowPlaying } from 'shared-lib';
+import { Cast, Credits, Genres, Movie, MovieDetail, MovieVideos, MoviesGateway } from 'shared-lib';
 import { environment } from '../../environments/environment';
 import { ONE } from '../ui/utils/constants/number.constants';
 
@@ -23,7 +23,7 @@ export class CustomMoviesService extends MoviesGateway {
     };
   }
 
-  getNowPlayingMovies(): Observable<NowPlaying> {
+  getMovies(): Observable<Movie[]> {
     throw new Error('Method not implemented.');
   }
   getMovie(movieId: string): Observable<MovieDetail> {

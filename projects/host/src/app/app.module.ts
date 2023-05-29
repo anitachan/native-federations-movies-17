@@ -11,12 +11,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MoviesGateway, SharedLibModule } from 'shared-lib';
-import { CustomMoviesService } from './infrastructure/services/custom-movies.service';
 import { DashboardComponent } from './ui/components/dashboard/dashboard.component';
 import { ToolbarComponent } from './ui/components/toolbar/toolbar.component';
 import { SidenavBarComponent } from './ui/components/sidenav-bar/sidenav-bar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { CustomMoviesService } from './infrastructure/driven-adapter/custom-movies.service';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, ToolbarComponent, SidenavBarComponent],

@@ -8,12 +8,13 @@ import { MatGridListHarness, MatGridTileHarness } from '@angular/material/grid-l
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponents, MockPipe, ngMocks } from 'ng-mocks';
 import { of } from 'rxjs';
-import { Movie } from '../../../domain/models/movies/now-playing.interface';
 import { PosterPipe } from '../../pipes/poster.pipe';
 import { EIGHT, FIVE, FOUR, NINE, ONE, ONE_HUNDRED_AND_THIRTY, SEVEN, SIX, THREE, TWO, ZERO } from '../../utils/constants/number.constants';
 import { LoadingComponent } from '../loading/loading.component';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { MoviesGridComponent } from './movies-grid.component';
+import { Movie } from '../../../domain/movies/models/movies.interface';
+import { GetMoviesUsecaseService } from '../../../domain/movies/usecases/get-movies/get-movies.usecase.service';
 
 describe('MoviesGridComponent', () => {
   let component: MoviesGridComponent;
@@ -83,9 +84,13 @@ describe('MoviesGridComponent', () => {
     },
   ];
 
+  const mockGetMoviesUsecaseService = {
+    invoke: jest.fn(() => of(mockMovies)),
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MoviesGridComponent, MockComponents(StarRatingComponent, LoadingComponent)],
+      providers: [{ provide: GetMoviesUsecaseService, useValue: mockGetMoviesUsecaseService }],
       imports: [MatGridListModule, RouterTestingModule, MockPipe(PosterPipe)],
     }).compileComponents();
 
@@ -132,11 +137,11 @@ describe('MoviesGridComponent', () => {
     ).toEqual(mockMovies.map((movie) => `/detail,${movie.id}`));
   });
 
-  it('should emit when more movies is required', () => {
-    jest.spyOn(component.loadMore, 'emit');
-
+  it('should set new movies and increase the page', () => {
     component.onScrollDown();
 
-    expect(component.loadMore.emit).toHaveBeenCalledWith();
+    expect(mockGetMoviesUsecaseService.invoke).toHaveBeenCalledWith(TWO);
+    expect(component.currentPage).toEqual(THREE);
+    expect(component.listMovies).toEqual(mockMovies.concat(mockMovies));
   });
 });

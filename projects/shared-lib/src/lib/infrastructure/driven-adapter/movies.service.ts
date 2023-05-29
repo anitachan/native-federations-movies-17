@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Cast } from '../../domain/models/movies/credits.interface';
-import { Genres, MovieDetail } from '../../domain/models/movies/movie-detail.interface';
-import { MovieVideos } from '../../domain/models/movies/movie-videos.interface';
-import { MoviesGateway } from '../../domain/models/movies/movies.gateway';
-import { NowPlaying } from '../../domain/models/movies/now-playing.interface';
+import { Cast } from '../../domain/movies/models/credits.interface';
+import { MoviesGateway } from '../../domain/movies/gateway/movies.gateway';
 import { MOVIES_SERVICE_ENDPOINTS, MoviesServiceEntries } from './movies.service.configuration';
+import { MovieDetail, Genres } from '../../domain/movies/models/movie-detail.interface';
+import { MovieVideos } from '../../domain/movies/models/movie-videos.interface';
+import { Movie } from '../../domain/movies/models/movies.interface';
 
 @Injectable()
 export class MoviesService extends MoviesGateway {
@@ -14,9 +14,9 @@ export class MoviesService extends MoviesGateway {
     super(httpClient);
   }
 
-  getNowPlayingMovies(page: number): Observable<NowPlaying> {
+  getMovies(page: number): Observable<Movie[]> {
     const path = this.endpoints[MoviesServiceEntries.GET_NOW_PLAYING_MOVIES];
-    return this.baseRequest<NowPlaying>(path, 'GET');
+    return this.baseRequest<Movie[]>(path, 'GET');
   }
   getMovie(movieId: string): Observable<MovieDetail> {
     const path = this.endpoints[MoviesServiceEntries.GET_MOVIE];

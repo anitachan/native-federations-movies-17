@@ -1,13 +1,13 @@
 import { InjectionToken } from '@angular/core';
 import { MoviesServiceEndpointsConfig } from './infrastructure/driven-adapter/movies.service.configuration';
-import { GetNowPlayingMoviesUsecaseService } from './domain/models/usecases/get-now-playing-movies/get-now-playing-movies.usecase.service';
 import { Observable } from 'rxjs';
-import { MoviesGateway } from './domain/models/movies/movies.gateway';
+import { MoviesGateway } from './domain/movies/gateway/movies.gateway';
 import { MoviesService } from './infrastructure/driven-adapter/movies.service';
-import { GetVideoMovieUsecaseService } from './domain/models/usecases/get-video-movie/get-video-movie.usecase.service';
-import { GetCastMovieUsecaseService } from './domain/models/usecases/get-cast-movie/get-cast-movie.usecase.service';
-import { GetGenreMoviesUsecaseService } from './domain/models/usecases/get-genre-movies/get-genre-movies.usecase.service';
-import { GetMovieUsecaseService } from './domain/models/usecases/get-movie/get-movie.usecase.service';
+import { GetCastMovieUsecaseService } from './domain/movies/usecases/get-cast-movie/get-cast-movie.usecase.service';
+import { GetGenreMoviesUsecaseService } from './domain/movies/usecases/get-genre-movies/get-genre-movies.usecase.service';
+import { GetMovieUsecaseService } from './domain/movies/usecases/get-movie/get-movie.usecase.service';
+import { GetVideoMovieUsecaseService } from './domain/movies/usecases/get-video-movie/get-video-movie.usecase.service';
+import { GetMoviesUsecaseService } from './domain/movies/usecases/get-movies/get-movies.usecase.service';
 
 export const ENDPOINTS_CONFIG: InjectionToken<Observable<any>> = new InjectionToken<Observable<any>>('EndpointsConfig');
 
@@ -27,7 +27,7 @@ export const DEFAULT_PROVIDERS = [
   GetCastMovieUsecaseService,
   GetGenreMoviesUsecaseService,
   GetMovieUsecaseService,
-  GetNowPlayingMoviesUsecaseService,
+  GetMoviesUsecaseService,
   GetVideoMovieUsecaseService,
 ];
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, forkJoin, map } from 'rxjs';
 import { Movie, MovieDetail } from 'shared-lib';
-import { CustomMoviesService } from '../../../infrastructure/services/custom-movies.service';
+import { CustomMoviesService } from '../../../infrastructure/driven-adapter/custom-movies.service';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -9,45 +9,7 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss'],
 })
-export class FavoritesComponent implements OnInit {
-  favorites$: Observable<Movie[]>;
+export class FavoritesComponent {
   imageHeight: string = '75vh';
   urlImage: string = environment.tmdbImage;
-
-  constructor(private customMoviesService: CustomMoviesService) {}
-
-  ngOnInit(): void {
-    this.getFavoritesMovies();
-  }
-
-  getFavoritesMovies() {
-    const favoritesLocalStorage: [{ id: string }] = JSON.parse(localStorage.getItem('favorites')!) || [];
-
-    const observable: Array<Observable<MovieDetail>> = [];
-
-    favoritesLocalStorage.forEach(({ id }, i: number) => {
-      observable.push(this.customMoviesService.getMovie(id));
-    });
-
-    this.favorites$ = forkJoin(observable).pipe(map((result: MovieDetail[]) => this.addFavorites(result)));
-  }
-
-  private addFavorites(result: MovieDetail[]) {
-    const favoritesList: Movie[] = [];
-    result.forEach((item) => {
-      favoritesList.push(this.getMovieData(item));
-    });
-    return favoritesList;
-  }
-
-  private getMovieData(movie: MovieDetail): Movie {
-    return {
-      id: movie.id,
-      title: movie.title,
-      vote_average: movie.vote_average,
-      overview: movie.overview,
-      poster_path: movie.poster_path,
-      backdrop_path: movie.backdrop_path,
-    };
-  }
 }

@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CustomMoviesService } from './custom-movies.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { environment } from '../../../environments/environment';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
-import { MovieService } from './movie.service';
 import { ONE } from '../utils/constants/number.constants';
+import { CustomMoviesService } from './custom-movies.service';
+import { MovieService } from './movie.service';
 
 describe('CustomMoviesService', () => {
   let service: CustomMoviesService;

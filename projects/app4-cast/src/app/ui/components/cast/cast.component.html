@@ -1,6 +1,5 @@
 <div class="scrolling-wrapper">
-  <mat-card [attr.data-test-selector]="'actorCard' + actor.cast_id" *ngFor="let actor of cast"
-    (click)="getActor(actor.name)">
+  <mat-card [attr.data-test-selector]="'actorCard' + actor.cast_id" *ngFor="let actor of cast" (click)="getActor(actor.name)">
     <img [src]="actor.profile_path! | poster : urlImage : 'w500'" [alt]="actor.name" class="img-thumbnail" />
     <mat-card-content>
       <p>

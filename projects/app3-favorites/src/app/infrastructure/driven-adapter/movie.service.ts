@@ -1,22 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MovieGateway } from '../../domain/movie/gateway/movie.gateway';
 import { Observable } from 'rxjs';
 import { MovieDetail } from '../../../../../shared-lib/src/public-api';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ONE } from '../utils/constants/number.constants';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MovieService extends MovieGateway {
+export class MovieService {
   private page = ONE;
   private tmdbUrl = environment.tmdbUrl;
   private tmbdApiKey = environment.tmbdApiKey;
 
-  constructor(private httpClient: HttpClient) {
-    super();
-  }
+  constructor(private httpClient: HttpClient) {}
 
   get params() {
     return {

@@ -21,7 +21,7 @@
     },
     "module": "es2020",
     "lib": ["es2020", "dom"],
-    "types": ["jest"],
+    "types": ["node", "jest"],
     "esModuleInterop": true,
     "strictPropertyInitialization": false
   },

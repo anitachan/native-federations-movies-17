@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { SharedLibModule } from 'shared-lib';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CastComponent } from './components/cast/cast.component';
+import { CastComponent } from './ui/components/cast/cast.component';
 
 @NgModule({
   declarations: [AppComponent, CastComponent],

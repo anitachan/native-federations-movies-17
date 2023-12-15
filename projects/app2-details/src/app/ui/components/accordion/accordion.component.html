@@ -18,9 +18,9 @@
       <mat-panel-title> Genres </mat-panel-title>
       <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
-    <mat-chip-list aria-label="Fish selection">
-      <mat-chip *ngFor="let genre of genres"> {{ genre.name }}</mat-chip>
-    </mat-chip-list>
+    <mat-chip-listbox aria-label="Fish selection">
+      <mat-chip-option *ngFor="let genre of genres"> {{ genre.name }}</mat-chip-option>
+    </mat-chip-listbox>
   </mat-expansion-panel>
   <mat-expansion-panel [expanded]="true" data-test-selector="expansionHomepage">
     <mat-expansion-panel-header>

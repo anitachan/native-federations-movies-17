@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 
 import { SharedLibModule } from 'shared-lib';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { GetCastMovieGateway } from '../domain/cast/gateway/get-cast-movie.gateway';
 import { GetCastMovieUsecaseService } from '../domain/cast/usecases/get-cast-movie/get-cast-movie.usecase.service';
 import { GetMovieGateway } from '../domain/movie/gateway/get-movie.gateway';

@@ -21,7 +21,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-architects/module-federation": "^16.0.4",
     "@angular-eslint/eslint-plugin": "14.0.0",
     "@angular/animations": "^16.2.12",
     "@angular/cdk": "^15.2.9",
@@ -33,12 +32,13 @@
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
-    "ngx-infinite-scroll": "^15.0.0",
+    "ngx-infinite-scroll": "^16.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.3"
   },
   "devDependencies": {
+    "@angular-architects/module-federation": "^16.0.0",
     "@angular-devkit/build-angular": "^16.2.10",
     "@angular-eslint/eslint-plugin": "14.0.0",
     "@angular-eslint/eslint-plugin-template": "14.0.0",
@@ -56,7 +56,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-preset-angular": "^13.0.0",
     "lint-staged": "^13.2.2",
-    "ng-mocks": "^14.7.1",
+    "ng-mocks": "^14.12.1",
     "ng-packagr": "^16.2.3",
     "ngx-build-plus": "^14.0.0",
     "prettier": "^2.8.7",

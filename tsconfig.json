@@ -15,15 +15,24 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "paths": {
-      "shared-lib": ["projects/shared-lib/src/public-api.ts"]
+      "shared-lib": [
+        "projects/shared-lib/src/public-api.ts"
+      ]
     },
     "module": "es2020",
-    "lib": ["es2020", "dom"],
-    "types": ["node", "jest"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "types": [
+      "node",
+      "jest"
+    ],
     "esModuleInterop": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

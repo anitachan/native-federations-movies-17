@@ -1,30 +1,13 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { OptionsRequests } from '../constants/http-headers.constants';
 
 @Injectable()
 export class BaseService {
   constructor(public http: HttpClient) {}
 
-  baseRequest<T>(
-    path: string,
-    method: string,
-    options:
-      | {
-          body?: any;
-          headers?: {
-            [header: string]: string | string[];
-          };
-          params?:
-            | HttpParams
-            | {
-                [param: string]: string | string[];
-              };
-        }
-      | {} = {},
-    returnError?: boolean
-  ): Observable<T> {
+  baseRequest<T>(path: string, method: string, options: OptionsRequests = {}, returnError?: boolean): Observable<T> {
     (options as any).headers = { ...(options as any).headers };
     return this.http
       .request<T>(method, path, { ...options })
@@ -33,6 +16,6 @@ export class BaseService {
           return returnError ? throwError(() => error) : of(null);
         })
       )
-      .pipe(map((item) => item!));
+      .pipe(map((item: any) => item));
   }
 }

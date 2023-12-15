@@ -10,8 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent, MockModule, ngMocks } from 'ng-mocks';
 import { StarRatingComponent } from 'shared-lib';
-import { AccordionComponent } from './accordion.component';
 import { ONE, SIX, TEN } from '../../utils/constants/number.constants';
+import { AccordionComponent } from './accordion.component';
 
 describe('AccordionComponent', () => {
   let component: AccordionComponent;

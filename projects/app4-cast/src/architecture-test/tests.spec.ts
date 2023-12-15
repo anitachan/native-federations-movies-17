@@ -30,16 +30,16 @@ describe('Architecture tests', () => {
   });
 
   uiItems.forEach((uiDirectory: string) => {
-    test(`should not access ui/${uiDirectory} to infraestructure layer`, async () => {
-      const rule = files.inFolder(`app/ui/${uiDirectory}`).shouldNot().dependOnFiles().inFolder('app/infraestructure');
+    test(`should not access ui/${uiDirectory} to infrastructure layer`, async () => {
+      const rule = files.inFolder(`app/ui/${uiDirectory}`).shouldNot().dependOnFiles().inFolder('app/infrastructure');
 
       await expect(rule).toPassAsync();
     });
   });
 
   uiItems.forEach((uiDirectory: string) => {
-    test(`should not access infraestructure layer to ui/${uiDirectory} folder`, async () => {
-      const rule = files.inFolder('app/infraestructure').shouldNot().dependOnFiles().inFolder(`app/ui/${uiDirectory}`);
+    test(`should not access infrastructure layer to ui/${uiDirectory} folder`, async () => {
+      const rule = files.inFolder('app/infrastructure').shouldNot().dependOnFiles().inFolder(`app/ui/${uiDirectory}`);
 
       await expect(rule).toPassAsync();
     });
@@ -53,8 +53,8 @@ describe('Architecture tests', () => {
     });
   });
 
-  test(`should not access domain layer to infraestructure folder`, async () => {
-    const rule = files.inFolder('app/domain').shouldNot().dependOnFiles().inFolder('app/infraestructure');
+  test(`should not access domain layer to infrastructure folder`, async () => {
+    const rule = files.inFolder('app/domain').shouldNot().dependOnFiles().inFolder('app/infrastructure');
 
     await expect(rule).toPassAsync();
   });

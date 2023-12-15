@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   tmdbUrl: 'https://api.themoviedb.org/3/',
-  tmbdApiKey: '65df35e6319938218e94a8b2587bd921',
+  tmbdApiKey: 'a551d12bf8b14129f2dfebaea90ff12d',
   tmdbImage: 'https://image.tmdb.org/t/p/',
 };
 

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
-import { MovieDetail } from '../../../../../shared-lib/src/public-api';
+import { MovieDetail } from 'shared-lib';
 import { environment } from '../../../environments/environment';
 import { ONE } from '../utils/constants/number.constants';
 
@@ -23,7 +24,7 @@ export class MovieService {
   }
 
   getMovie(movieId: string): Observable<MovieDetail> {
-    const url: string = `${this.tmdbUrl}movie/${movieId}`;
+    const url = `${this.tmdbUrl}movie/${movieId}`;
     return this.httpClient.get<MovieDetail>(url, { params: this.params });
   }
 }

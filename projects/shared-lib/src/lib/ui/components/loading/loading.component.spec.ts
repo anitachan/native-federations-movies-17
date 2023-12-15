@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoadingComponent } from './loading.component';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressSpinnerHarness } from '@angular/material/progress-spinner/testing';
 import { ONE, ZERO } from '../../utils/constants/number.constants';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingComponent } from './loading.component';
 
 describe('LoadingComponent', () => {
   let component: LoadingComponent;
   let fixture: ComponentFixture<LoadingComponent>;
   let loader: HarnessLoader;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [LoadingComponent],
       imports: [MatProgressSpinnerModule],
     }).compileComponents();

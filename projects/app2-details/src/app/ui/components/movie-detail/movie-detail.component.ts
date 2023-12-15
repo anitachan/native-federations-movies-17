@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Cast, Genre, MovieDetail, VideoItem } from 'shared-lib';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Cast, Favorite, Genre, MovieDetail, VideoItem } from 'shared-lib';
 import { environment } from '../../../../environments/environment';
-import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
+import { GetCastMovieUsecaseService } from '../../../domain/cast/usecases/get-cast-movie/get-cast-movie.usecase.service';
+import { GetMovieUsecaseService } from '../../../domain/movie/usecases/get-movie/get-movie.usecase.service';
+import { GetVideoMovieUsecaseService } from '../../../domain/videos/usecases/get-video-movie/get-video-movie.usecase.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -19,43 +21,53 @@ export class MovieDetailComponent implements OnInit {
     genres: Genre[];
   }> = new Observable();
 
-  movieId: string;
-  favorite: boolean = false;
-  selectedActor: string = '';
+  movieId: string | null;
+  favorite = false;
+  selectedActor = '';
   urlImage: string = environment.tmdbImage;
 
-  constructor(private customMoviesService: CustomMoviesService, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private getMovieUsecaseService: GetMovieUsecaseService,
+    private activatedRoute: ActivatedRoute,
+    private getCastMovieUsecaseService: GetCastMovieUsecaseService,
+    private getVideoMovieUsecaseService: GetVideoMovieUsecaseService
+  ) {}
 
   ngOnInit(): void {
-    this.movieId = this.activatedRoute.snapshot.paramMap.get('id')!;
-    const { movieSelected } = this.getFavorites();
-    this.favorite = movieSelected ? true : false;
+    this.movieId = this.activatedRoute.snapshot.paramMap.get('id');
+    const selectedFavorites = this.getFavorites();
+    const movieSelected = this.getMovieSelected(selectedFavorites);
+    this.favorite = !!movieSelected;
     this.getMoviesDetails();
   }
 
   getMoviesDetails() {
-    this.movieData$ = combineLatest({
-      movie: this.customMoviesService.getMovie(this.movieId),
-      cast: this.customMoviesService.getCastMovie(this.movieId),
-      videos: this.customMoviesService.getVideoMovie(this.movieId),
-    }).pipe(
-      map(({ movie, cast, videos }) => ({
-        movie,
-        cast: cast.filter((actor) => actor.profile_path),
-        videos: videos.results,
-        genres: movie.genres,
-      }))
-    );
+    if (this.movieId) {
+      this.movieData$ = combineLatest({
+        movie: this.getMovieUsecaseService.invoke(this.movieId),
+        cast: this.getCastMovieUsecaseService.invoke(this.movieId),
+        videos: this.getVideoMovieUsecaseService.invoke(this.movieId),
+      }).pipe(
+        map(({ movie, cast, videos }) => ({
+          movie,
+          cast: cast.filter((actor) => actor.profile_path),
+          videos: videos.results,
+          genres: movie.genres,
+        }))
+      );
+    }
   }
 
   setFavorite() {
-    const { selectedFavorites, movieSelected } = this.getFavorites();
+    const selectedFavorites = this.getFavorites();
+    const movieSelected = this.getMovieSelected(selectedFavorites);
 
-    let newSelectedFavorites: { id: string }[] = [];
+    let newSelectedFavorites: Favorite[] = [];
     if (movieSelected) {
       newSelectedFavorites = selectedFavorites.filter((favorite: { id: string }) => favorite.id !== this.movieId);
-    } else {
-      selectedFavorites.push({ id: this.movieId });
+    } else if (this.movieId) {
+      const favorite: Favorite = { id: this.movieId };
+      selectedFavorites.push(favorite);
       newSelectedFavorites = selectedFavorites;
     }
     localStorage.setItem('favorites', JSON.stringify(newSelectedFavorites));
@@ -67,8 +79,11 @@ export class MovieDetailComponent implements OnInit {
   }
 
   private getFavorites() {
-    const selectedFavorites = JSON.parse(localStorage.getItem('favorites')!) || [];
-    const movieSelected = selectedFavorites.find((favorite: { id: string }) => favorite.id === this.movieId);
-    return { selectedFavorites, movieSelected };
+    const favoritesString: string | null = localStorage.getItem('favorites');
+    return <Favorite[]>JSON.parse(favoritesString ?? '[]');
+  }
+
+  private getMovieSelected(selectedFavorites: Favorite[]) {
+    return selectedFavorites.find((favorite: { id: string }) => favorite.id === this.movieId);
   }
 }

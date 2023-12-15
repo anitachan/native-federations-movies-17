@@ -8,7 +8,7 @@ module.exports = withModuleFederationPlugin({
 
   exposes: {
     "./Component":
-      "./projects/app4-cast/src/app/components/cast/cast.component.ts",
+      "./projects/app4-cast/src/app/ui/components/cast/cast.component.ts",
   },
 
   shared: {

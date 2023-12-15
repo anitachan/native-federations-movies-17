@@ -1,13 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CastComponent } from './cast.component';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { MatButtonHarness } from '@angular/material/button/testing';
-import { MatCardHarness } from '@angular/material/card/testing';
 import { MatCardModule } from '@angular/material/card';
-import { Cast, PosterPipe } from 'shared-lib';
+import { MatCardHarness } from '@angular/material/card/testing';
 import { MockPipe } from 'ng-mocks';
+import { Cast, PosterPipe } from 'shared-lib';
+import { CastComponent } from './cast.component';
 
 describe('CastComponent', () => {
   let component: CastComponent;
@@ -47,8 +46,8 @@ describe('CastComponent', () => {
     },
   ];
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [CastComponent],
       imports: [MatCardModule, MockPipe(PosterPipe)],
     }).compileComponents();

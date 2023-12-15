@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
-import { ONE } from '../utils/constants/number.constants';
 import { CustomMoviesService } from './custom-movies.service';
 import { MovieService } from './movie.service';
 
@@ -106,26 +105,10 @@ describe('CustomMoviesService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return error when getMovie is called', () => {
-    expect(() => service.getMovie('movieID')).toThrow('Method not implemented.');
-  });
-
-  it('should return error when getCastMovie is called', () => {
-    expect(() => service.getCastMovie('movieID')).toThrow('Method not implemented.');
-  });
-
-  it('should return error when getVideoMovie is called', () => {
-    expect(() => service.getVideoMovie('movieID')).toThrow('Method not implemented.');
-  });
-
-  it('should return error when getGenreMovies is called', () => {
-    expect(() => service.getGenreMovies()).toThrow('Method not implemented.');
-  });
-
   it('should return an empty array when does not have favorites', () => {
     jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
 
-    service.getMovies(ONE);
+    service.getMovies();
 
     expect(mockMoviesService.getMovie).not.toHaveBeenCalled();
   });
@@ -135,7 +118,7 @@ describe('CustomMoviesService', () => {
 
     jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(JSON.stringify(favoriteMovies));
 
-    const subscription = service.getMovies(ONE).subscribe((movies) => {
+    const subscription = service.getMovies().subscribe((movies) => {
       expect(movies).toEqual([mapperMovie, mapperMovie, mapperMovie]);
       done();
     });

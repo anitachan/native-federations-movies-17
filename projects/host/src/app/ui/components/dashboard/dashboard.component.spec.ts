@@ -1,18 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardComponent } from './dashboard.component';
-import { MockProvider, ngMocks, MockComponent } from 'ng-mocks';
+import { MockComponent, ngMocks } from 'ng-mocks';
 import { MoviesGridComponent } from 'shared-lib';
-import { of, pipe } from 'rxjs';
-
-import { SEVEN, EIGHT, ONE, TWO, THREE, FOUR, FIVE, SIX, NINE } from '../../../infrastructure/utils/constants/number.constants';
+import { TWO } from '../../../core/constants/number.constants';
+import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [DashboardComponent, MockComponent(MoviesGridComponent)],
     }).compileComponents();
 

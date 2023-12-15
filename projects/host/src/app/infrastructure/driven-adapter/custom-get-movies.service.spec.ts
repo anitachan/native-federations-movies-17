@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CustomMoviesService } from './custom-movies.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../../../environments/environment';
-import { EIGHT, FIVE, FOUR, NINE, ONE, SEVEN, SIX, THREE, TWO } from '../utils/constants/number.constants';
+import { EIGHT, FIVE, FOUR, NINE, ONE, SEVEN, SIX, THREE, TWO } from '../../core/constants/number.constants';
+import { CustomGetMoviesService } from './custom-get-movies.service';
 
 describe('CustomMoviesService', () => {
-  let service: CustomMoviesService;
+  let service: CustomGetMoviesService;
   let httpCtrl: HttpTestingController;
 
   const mockMoviesNowPlayingData = {
@@ -91,7 +91,7 @@ describe('CustomMoviesService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({ imports: [HttpClientTestingModule] });
-    service = TestBed.inject(CustomMoviesService);
+    service = TestBed.inject(CustomGetMoviesService);
     httpCtrl = TestBed.inject(HttpTestingController);
   });
 
@@ -101,7 +101,7 @@ describe('CustomMoviesService', () => {
 
   it('should get and return now playing movies', (done) => {
     const { api_key, page } = service.getParams(ONE);
-    const url: string = `${environment.tmdbUrl}movie/now_playing?api_key=${api_key}&page=${page}`;
+    const url = `${environment.tmdbUrl}movie/now_playing?api_key=${api_key}&page=${page}`;
     const subscription = service.getMovies(ONE).subscribe((response) => {
       expect(response).toBeTruthy();
       expect(response).toEqual(mockMoviesNowPlayingData.results);
@@ -115,21 +115,5 @@ describe('CustomMoviesService', () => {
 
     mockHttp.flush(mockMoviesNowPlayingData);
     subscription.unsubscribe();
-  });
-
-  it('should return error when getCastMovie is called', () => {
-    expect(() => service.getCastMovie('movieID')).toThrow('Method not implemented.');
-  });
-
-  it('should return error when getVideoMovie is called', () => {
-    expect(() => service.getVideoMovie('movieID')).toThrow('Method not implemented.');
-  });
-
-  it('should return error when getMovie is called', () => {
-    expect(() => service.getMovie('movieID')).toThrow('Method not implemented.');
-  });
-
-  it('should return error when getGenreMovies is called', () => {
-    expect(() => service.getGenreMovies()).toThrow('Method not implemented.');
   });
 });

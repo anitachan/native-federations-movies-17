@@ -8,15 +8,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { GetMoviesGateway, SharedLibModule } from 'shared-lib';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MoviesGateway, SharedLibModule } from 'shared-lib';
+import { CustomGetMoviesService } from './infrastructure/driven-adapter/custom-get-movies.service';
 import { DashboardComponent } from './ui/components/dashboard/dashboard.component';
-import { ToolbarComponent } from './ui/components/toolbar/toolbar.component';
 import { SidenavBarComponent } from './ui/components/sidenav-bar/sidenav-bar.component';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { CustomMoviesService } from './infrastructure/driven-adapter/custom-movies.service';
+import { ToolbarComponent } from './ui/components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, ToolbarComponent, SidenavBarComponent],
@@ -34,8 +34,8 @@ import { CustomMoviesService } from './infrastructure/driven-adapter/custom-movi
     SharedLibModule.forRoot({
       infrastructures: [
         {
-          gateway: MoviesGateway,
-          implementation: CustomMoviesService,
+          gateway: GetMoviesGateway,
+          implementation: CustomGetMoviesService,
         },
       ],
     }),

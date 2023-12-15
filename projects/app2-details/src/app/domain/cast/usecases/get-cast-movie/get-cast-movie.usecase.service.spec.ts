@@ -1,87 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CustomMoviesService } from './custom-movies.service';
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
-import { environment } from '../../environments/environment';
+import { of, throwError } from 'rxjs';
+import { GetCastMovieGateway } from '../../gateway/get-cast-movie.gateway';
+import { GetCastMovieUsecaseService } from './get-cast-movie.usecase.service';
 
-describe('CustomMoviesService', () => {
-  let service: CustomMoviesService;
-  let httpCtrl: HttpTestingController;
-  const tmdbUrl = environment.tmdbUrl;
+describe('GetCastMovieUsecaseService', () => {
+  let useCase: GetCastMovieUsecaseService;
 
-  const mockMovieData = {
-    adult: false,
-    backdrop_path: '/mfwq2nMBzArzQ7Y9RKE8SKeeTkg.jpg',
-    belongs_to_collection: {
-      id: 9743,
-      name: 'The Hannibal Lecter Collection',
-      poster_path: '/aRbyr3KsdmIczGh6VrlvlgQdwMQ.jpg',
-      backdrop_path: '/npCbvak9UhjPsZB9Oa2k2jsqI7E.jpg',
-    },
-    budget: 19000000,
-    genres: [
-      {
-        id: 80,
-        name: 'Crime',
-      },
-      {
-        id: 18,
-        name: 'Drama',
-      },
-      {
-        id: 53,
-        name: 'Thriller',
-      },
-      {
-        id: 27,
-        name: 'Horror',
-      },
-    ],
-    homepage: '',
-    id: 274,
-    imdb_id: 'tt0102926',
-    original_language: 'en',
-    original_title: 'The Silence of the Lambs',
-    overview:
-      "Clarice Starling is a top student at the FBI's training academy. Jack Crawford wants Clarice to interview Dr. Hannibal Lecter, a brilliant psychiatrist who is also a violent psychopath, serving life behind bars for various acts of murder and cannibalism. Crawford believes that Lecter may have insight into a case and that Starling, as an attractive young woman, may be just the bait to draw him out.",
-    popularity: 8.841,
-    poster_path: '/rplLJ2hPcOQmkFhTqUte0MkEaO2.jpg',
-    production_companies: [
-      {
-        id: 41,
-        logo_path: '/AuAIlCWBrbhbUFFrJ6M9E3ihBoj.png',
-        name: 'Orion Pictures',
-        origin_country: 'US',
-      },
-      {
-        id: 55072,
-        logo_path: null,
-        name: 'Strong Heart/Demme Production',
-        origin_country: 'US',
-      },
-    ],
-    production_countries: [
-      {
-        iso_3166_1: 'US',
-        name: 'United States of America',
-      },
-    ],
-    release_date: '1991-02-01',
-    revenue: 272742922,
-    runtime: 119,
-    spoken_languages: [
-      {
-        english_name: 'English',
-        iso_639_1: 'en',
-        name: 'English',
-      },
-    ],
-    status: 'Released',
-    tagline: 'To enter the mind of a killer she must challenge the mind of a madman.',
-    title: 'The Silence of the Lambs',
-    video: false,
-    vote_average: 8.3,
-    vote_count: 12064,
+  const mockBody: { movieId: string } = {
+    movieId: '123456',
   };
 
   const mockCastData = {
@@ -398,113 +325,39 @@ describe('CustomMoviesService', () => {
     ],
   };
 
-  const mockVideoMovieData = {
-    movieVideo: {
-      id: 274,
-      results: [
-        {
-          id: '5a859a309251410aae02170c',
-          iso_639_1: 'en',
-          iso_3166_1: 'US',
-          key: '8xWbc_kFus4',
-          name: 'Jodie Foster On Hannibal Lecter',
-          site: 'YouTube',
-          size: 360,
-          type: 'Featurette',
-        },
-        {
-          id: '5b5b3a8e0e0a26740d00bc0a',
-          iso_639_1: 'en',
-          iso_3166_1: 'US',
-          key: 'W6Mm8Sbe__o',
-          name: 'The Silence of the Lambs Official Trailer #1 - Anthony Hopkins Movie (1991) HD',
-          site: 'YouTube',
-          size: 720,
-          type: 'Trailer',
-        },
-      ],
-    },
-    movieVideoUrl: [
-      {
-        url: 'https://www.youtube.com/embed/8xWbc_kFus4',
-        name: 'Jodie Foster On Hannibal Lecter',
-      },
-      {
-        url: 'https://www.youtube.com/embed/W6Mm8Sbe__o',
-        name: 'The Silence of the Lambs Official Trailer #1 - Anthony Hopkins Movie (1991) HD',
-      },
-    ],
+  const mockGetCastMovieGateway = {
+    getCastMovie: jest.fn(() => of(mockCastData)),
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ imports: [HttpClientTestingModule] });
-    service = TestBed.inject(CustomMoviesService);
-    httpCtrl = TestBed.inject(HttpTestingController);
+    TestBed.configureTestingModule({
+      providers: [GetCastMovieUsecaseService, { provide: GetCastMovieGateway, useValue: mockGetCastMovieGateway }],
+    });
+    useCase = TestBed.inject(GetCastMovieUsecaseService);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(useCase).toBeTruthy();
   });
 
-  it('should get and return movie detail with the movie id', (done) => {
-    const movieId = 'movieId';
-    const url: string = `${tmdbUrl}movie/${movieId}?api_key=${service.params.api_key}&page=${service.params.page}`;
-    const subscription = service.getMovie(movieId).subscribe((response) => {
-      expect(response).toBeTruthy();
-      expect(response).toEqual(mockMovieData);
+  it('should return the correct data', (done) => {
+    const subscription = useCase.invoke(mockBody).subscribe((data) => {
+      expect(data).toEqual(mockCastData);
       done();
     });
-
-    const mockHttp = httpCtrl.expectOne(url);
-    const httpRequest = mockHttp.request;
-
-    expect(httpRequest.method).toEqual('GET');
-
-    mockHttp.flush(mockMovieData);
     subscription.unsubscribe();
   });
 
-  it('should get and return movie videos with the movie id', (done) => {
-    const movieId = 'movieId';
-    const url: string = `${tmdbUrl}movie/${movieId}/videos?api_key=${service.params.api_key}&page=${service.params.page}`;
-    const subscription = service.getVideoMovie(movieId).subscribe((response) => {
-      expect(response).toBeTruthy();
-      expect(response).toEqual(mockVideoMovieData);
+  it('should call invoke and return error', (done) => {
+    const error = {
+      status: 404,
+    };
+    jest.spyOn(mockGetCastMovieGateway, 'getCastMovie').mockImplementationOnce(() => throwError(() => error));
+
+    const subscription = useCase.invoke(mockBody).subscribe((resp) => {
+      expect(resp).toEqual(error);
       done();
     });
-
-    const mockHttp = httpCtrl.expectOne(url);
-    const httpRequest = mockHttp.request;
-
-    expect(httpRequest.method).toEqual('GET');
-
-    mockHttp.flush(mockVideoMovieData);
     subscription.unsubscribe();
-  });
-
-  it('should get and return movie cast with the movie id', (done) => {
-    const movieId = 'movieId';
-    const url: string = `${tmdbUrl}movie/${movieId}/credits?api_key=${service.params.api_key}&page=${service.params.page}`;
-    const subscription = service.getCastMovie(movieId).subscribe((response) => {
-      expect(response).toBeTruthy();
-      expect(response).toEqual(mockCastData.cast);
-      done();
-    });
-
-    const mockHttp = httpCtrl.expectOne(url);
-    const httpRequest = mockHttp.request;
-
-    expect(httpRequest.method).toEqual('GET');
-
-    mockHttp.flush(mockCastData);
-    subscription.unsubscribe();
-  });
-
-  it('should return error when getGenreMovies is called', () => {
-    expect(() => service.getGenreMovies()).toThrow('Method not implemented.');
-  });
-
-  it('should return error when getNowPlayingMovies is called', () => {
-    expect(() => service.getMovies()).toThrow('Method not implemented.');
   });
 });

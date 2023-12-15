@@ -14,8 +14,8 @@ describe('SidenavBarComponent', () => {
   let fixture: ComponentFixture<SidenavBarComponent>;
   let loader: HarnessLoader;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [SidenavBarComponent],
       imports: [NoopAnimationsModule, RouterTestingModule, MatSidenavModule, MatListModule],
     }).compileComponents();

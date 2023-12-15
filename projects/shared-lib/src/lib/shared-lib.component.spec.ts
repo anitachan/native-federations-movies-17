@@ -6,8 +6,8 @@ describe('SharedLibComponent', () => {
   let component: SharedLibComponent;
   let fixture: ComponentFixture<SharedLibComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [SharedLibComponent],
     }).compileComponents();
 
@@ -15,7 +15,6 @@ describe('SharedLibComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });

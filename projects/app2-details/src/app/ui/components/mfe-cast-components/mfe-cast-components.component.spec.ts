@@ -5,6 +5,7 @@ import { ComponentRef } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Cast } from 'shared-lib';
 import { MfeCastComponentsComponent } from './mfe-cast-components.component';
+
 jest.mock('@angular-architects/module-federation', () => ({
   loadRemoteModule: jest.fn(() => Promise.resolve({})),
 }));

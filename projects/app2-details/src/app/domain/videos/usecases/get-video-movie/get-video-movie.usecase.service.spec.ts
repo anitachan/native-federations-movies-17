@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { of, throwError } from 'rxjs';
-import { MoviesGateway } from '../../../movies/gateway/movies.gateway';
+import { GetVideosMovieGateway } from '../../gateway/get-videos-movie.gateway';
 import { GetVideoMovieUsecaseService } from './get-video-movie.usecase.service';
 
 describe('GetVideoMovieUsecaseService', () => {
@@ -49,13 +49,13 @@ describe('GetVideoMovieUsecaseService', () => {
     ],
   };
 
-  const mockMoviesGateway = {
-    getVideoMovie: jest.fn(() => of(mockVideoMovieData)),
+  const mockGetVideosMovieGateway = {
+    getVideosMovie: jest.fn(() => of(mockVideoMovieData)),
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GetVideoMovieUsecaseService, { provide: MoviesGateway, useValue: mockMoviesGateway }],
+      providers: [GetVideoMovieUsecaseService, { provide: GetVideosMovieGateway, useValue: mockGetVideosMovieGateway }],
     });
     useCase = TestBed.inject(GetVideoMovieUsecaseService);
   });
@@ -75,7 +75,7 @@ describe('GetVideoMovieUsecaseService', () => {
     const error = {
       status: 404,
     };
-    jest.spyOn(mockMoviesGateway, 'getVideoMovie').mockImplementationOnce(() => throwError(() => error));
+    jest.spyOn(mockGetVideosMovieGateway, 'getVideosMovie').mockImplementationOnce(() => throwError(() => error));
 
     useCase.invoke(mockBody).subscribe((resp) => {
       expect(resp).toEqual(error);

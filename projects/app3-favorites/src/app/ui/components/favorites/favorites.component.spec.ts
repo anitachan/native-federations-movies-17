@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent, ngMocks } from 'ng-mocks';
 import { MoviesGridComponent } from 'shared-lib';
-import { FavoritesComponent } from './favorites.component';
 import { THREE } from '../../utils/constants/number.constants';
+import { FavoritesComponent } from './favorites.component';
 
 describe('FavoritesComponent', () => {
   let component: FavoritesComponent;

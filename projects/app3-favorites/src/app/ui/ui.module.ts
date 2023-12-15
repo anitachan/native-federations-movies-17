@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { MoviesGateway, SharedLibModule } from 'shared-lib';
+import { GetMoviesGateway, SharedLibModule } from 'shared-lib';
 
+import { CustomMoviesService } from '../infrastructure/driven-adapter/custom-movies.service';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { UiRoutingModule } from './ui-routing.module';
-import { CustomMoviesService } from '../infrastructure/driven-adapter/custom-movies.service';
 
 @NgModule({
   declarations: [FavoritesComponent],
@@ -15,7 +15,7 @@ import { CustomMoviesService } from '../infrastructure/driven-adapter/custom-mov
     SharedLibModule.forRoot({
       infrastructures: [
         {
-          gateway: MoviesGateway,
+          gateway: GetMoviesGateway,
           implementation: CustomMoviesService,
         },
       ],

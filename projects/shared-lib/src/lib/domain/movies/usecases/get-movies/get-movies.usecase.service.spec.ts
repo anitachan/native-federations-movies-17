@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GetMoviesUsecaseService } from './get-movies.usecase.service';
-import { MoviesGateway } from '../../gateway/movies.gateway';
 import { of, throwError } from 'rxjs';
-import { SEVEN, EIGHT, ONE, TWO, THREE, FOUR, FIVE, SIX, NINE } from '../../../helpers/constants/number.constants';
+import { EIGHT, FIVE, FOUR, NINE, ONE, SEVEN, SIX, THREE, TWO } from '../../../helpers/constants/number.constants';
+import { GetMoviesGateway } from '../../gateway/get-movies.gateway';
+import { GetMoviesUsecaseService } from './get-movies.usecase.service';
 
 describe('GetNowPlayingMoviesUsecaseService', () => {
   let useCase: GetMoviesUsecaseService;
@@ -79,13 +79,13 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
     },
   ];
 
-  const mockMoviesGateway = {
+  const mockGetMoviesGateway = {
     getMovies: jest.fn(() => of(mockMoviesData)),
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GetMoviesUsecaseService, { provide: MoviesGateway, useValue: mockMoviesGateway }],
+      providers: [GetMoviesUsecaseService, { provide: GetMoviesGateway, useValue: mockGetMoviesGateway }],
     });
     useCase = TestBed.inject(GetMoviesUsecaseService);
   });
@@ -107,7 +107,7 @@ describe('GetNowPlayingMoviesUsecaseService', () => {
     const error = {
       status: 404,
     };
-    jest.spyOn(mockMoviesGateway, 'getMovies').mockImplementationOnce(() => throwError(() => error));
+    jest.spyOn(mockGetMoviesGateway, 'getMovies').mockImplementationOnce(() => throwError(() => error));
 
     const subscription = useCase.invoke(ONE).subscribe((resp) => {
       expect(resp).toEqual(error);

@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StarRatingComponent } from './star-rating.component';
 import { HarnessLoader, parallel } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { MatIconHarness } from '@angular/material/icon/testing';
-import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { MatButtonHarness } from '@angular/material/button/testing';
+import { MatIconModule } from '@angular/material/icon';
+import { MatIconHarness } from '@angular/material/icon/testing';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTooltipHarness } from '@angular/material/tooltip/testing';
-import { MatButtonModule } from '@angular/material/button';
 import { TEN } from '../../utils/constants/number.constants';
+import { StarRatingComponent } from './star-rating.component';
 
 describe('StarRatingComponent', () => {
   let component: StarRatingComponent;
   let fixture: ComponentFixture<StarRatingComponent>;
   let loader: HarnessLoader;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [StarRatingComponent],
       imports: [MatIconModule, MatTooltipModule, MatButtonModule],
     }).compileComponents();

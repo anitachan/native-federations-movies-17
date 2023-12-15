@@ -5,11 +5,13 @@ import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { MockComponents, MockModule, MockPipe, ngMocks } from 'ng-mocks';
 import { of } from 'rxjs';
 import { PosterPipe } from 'shared-lib';
+import { GetCastMovieUsecaseService } from '../../../domain/cast/usecases/get-cast-movie/get-cast-movie.usecase.service';
+import { GetMovieUsecaseService } from '../../../domain/movie/usecases/get-movie/get-movie.usecase.service';
+import { GetVideoMovieUsecaseService } from '../../../domain/videos/usecases/get-video-movie/get-video-movie.usecase.service';
+import { ONE, ZERO } from '../../utils/constants/number.constants';
 import { AccordionComponent } from '../accordion/accordion.component';
 import { MfeCastComponentsComponent } from '../mfe-cast-components/mfe-cast-components.component';
 import { MovieDetailComponent } from './movie-detail.component';
-import { CustomMoviesService } from '../../../infrastructure/custom-movies.service';
-import { ONE, ZERO } from '../../utils/constants/number.constants';
 
 describe('MovieDetailComponent', () => {
   let component: MovieDetailComponent;
@@ -172,11 +174,16 @@ describe('MovieDetailComponent', () => {
       },
     ],
   };
+  const mockGetMovieUsecaseService = {
+    invoke: jest.fn(() => of(movieData)),
+  };
 
-  const mockCustomMoviesService = {
-    getMovie: jest.fn(() => of(movieData)),
-    getCastMovie: jest.fn(() => of(castData)),
-    getVideoMovie: jest.fn(() => of(videoMovieData)),
+  const mockGetCastMovieUsecaseService = {
+    invoke: jest.fn(() => of(castData)),
+  };
+
+  const mockGetVideoMovieUsecaseService = {
+    invoke: jest.fn(() => of(videoMovieData)),
   };
 
   beforeEach(async () => {
@@ -184,7 +191,9 @@ describe('MovieDetailComponent', () => {
       declarations: [MovieDetailComponent, MockComponents(AccordionComponent, MfeCastComponentsComponent), MockPipe(PosterPipe)],
       imports: [MockModule(MatIconModule)],
       providers: [
-        { provide: CustomMoviesService, useValue: mockCustomMoviesService },
+        { provide: GetMovieUsecaseService, useValue: mockGetMovieUsecaseService },
+        { provide: GetCastMovieUsecaseService, useValue: mockGetCastMovieUsecaseService },
+        { provide: GetVideoMovieUsecaseService, useValue: mockGetVideoMovieUsecaseService },
         {
           provide: ActivatedRoute,
           useValue: {

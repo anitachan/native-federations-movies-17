@@ -58,3 +58,7 @@ export interface SpokenLanguage {
   iso_639_1: string;
   name: string;
 }
+
+export interface Favorite {
+  id: string;
+}

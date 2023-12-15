@@ -15,8 +15,8 @@ describe('AppComponent', () => {
     observe: jest.fn(() => of({ matches: false, breakpoints: {} })),
   };
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [AppComponent, MockComponents(SidenavBarComponent, ToolbarComponent)],
       providers: [{ provide: BreakpointObserver, useValue: mockBreakpointObserver }],

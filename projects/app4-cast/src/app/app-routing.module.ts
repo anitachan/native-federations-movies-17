@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CastComponent } from './components/cast/cast.component';
+import { CastComponent } from './ui/components/cast/cast.component';
 
 const routes: Routes = [
   {

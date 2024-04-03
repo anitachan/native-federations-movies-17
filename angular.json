@@ -73,11 +73,11 @@
           "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "host:build:production",
+              "buildTarget": "host:build:production",
               "extraWebpackConfig": "projects/host/webpack.prod.config.js"
             },
             "development": {
-              "browserTarget": "host:build:development"
+              "buildTarget": "host:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -90,7 +90,7 @@
         "extract-i18n": {
           "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "host:build",
+            "buildTarget": "host:build",
             "extraWebpackConfig": "projects/host/webpack.config.js"
           }
         }
@@ -160,11 +160,11 @@
           "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "app2-details:build:production",
+              "buildTarget": "app2-details:build:production",
               "extraWebpackConfig": "projects/app2-details/webpack.prod.config.js"
             },
             "development": {
-              "browserTarget": "app2-details:build:development"
+              "buildTarget": "app2-details:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -177,7 +177,7 @@
         "extract-i18n": {
           "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "app2-details:build",
+            "buildTarget": "app2-details:build",
             "extraWebpackConfig": "projects/app2-details/webpack.config.js"
           }
         }
@@ -247,11 +247,11 @@
           "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "app3-favorites:build:production",
+              "buildTarget": "app3-favorites:build:production",
               "extraWebpackConfig": "projects/app3-favorites/webpack.prod.config.js"
             },
             "development": {
-              "browserTarget": "app3-favorites:build:development"
+              "buildTarget": "app3-favorites:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -264,7 +264,7 @@
         "extract-i18n": {
           "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "app3-favorites:build",
+            "buildTarget": "app3-favorites:build",
             "extraWebpackConfig": "projects/app3-favorites/webpack.config.js"
           }
         }
@@ -357,11 +357,11 @@
           "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "app4-cast:build:production",
+              "buildTarget": "app4-cast:build:production",
               "extraWebpackConfig": "projects/app4-cast/webpack.prod.config.js"
             },
             "development": {
-              "browserTarget": "app4-cast:build:development"
+              "buildTarget": "app4-cast:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -374,7 +374,7 @@
         "extract-i18n": {
           "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "app4-cast:build",
+            "buildTarget": "app4-cast:build",
             "extraWebpackConfig": "projects/app4-cast/webpack.config.js"
           }
         }

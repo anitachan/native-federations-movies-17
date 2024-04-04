@@ -5,17 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterTestingModule } from '@angular/router/testing';
 
+import { RouterModule } from '@angular/router';
 import { MockModule } from 'ng-mocks';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { ToolbarComponent } from './toolbar.component';
-
-export class RouterStub {
-  navigateByUrl(url: string) {
-    return url;
-  }
-}
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;
@@ -29,7 +23,7 @@ describe('ToolbarComponent', () => {
         MockModule(MatToolbarModule),
         MockModule(MatIconModule),
         MatButtonModule,
-        RouterTestingModule.withRoutes([{ path: 'home', component: DashboardComponent }]),
+        RouterModule.forRoot([{ path: 'home', component: DashboardComponent }]),
       ],
     }).compileComponents();
 

@@ -2,11 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSidenavHarness } from '@angular/material/sidenav/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
+import { MockModule } from 'ng-mocks';
 import { SidenavBarComponent } from './sidenav-bar.component';
 
 describe('SidenavBarComponent', () => {
@@ -17,7 +19,7 @@ describe('SidenavBarComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [SidenavBarComponent],
-      imports: [NoopAnimationsModule, RouterTestingModule, MatSidenavModule, MatListModule],
+      imports: [NoopAnimationsModule, RouterModule, MockModule(MatIconModule), MatSidenavModule, MatListModule],
     }).compileComponents();
   });
 

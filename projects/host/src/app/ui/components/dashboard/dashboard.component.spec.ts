@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MockComponent, ngMocks } from 'ng-mocks';
-import { MoviesGridComponent } from 'shared-lib';
+import { MockModule, ngMocks } from 'ng-mocks';
+import { MoviesGridComponent, SharedLibModule } from 'shared-lib';
 import { TWO } from '../../../core/constants/number.constants';
 import { DashboardComponent } from './dashboard.component';
 
@@ -11,7 +11,7 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DashboardComponent, MockComponent(MoviesGridComponent)],
+      declarations: [DashboardComponent, MockModule(SharedLibModule)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);

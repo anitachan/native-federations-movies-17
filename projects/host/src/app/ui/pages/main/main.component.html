@@ -1,0 +1,6 @@
+<app-toolbar (sidenavEvent)="sidenavOpen = $event"></app-toolbar>
+@if (!(mobile$ | async); as mobile) {
+<app-sidenav-bar [sidenavConfig]="sidenavConfig" [mobile]="mobile" [open]="sidenavOpen" [mode]="'side'">
+  <router-outlet></router-outlet>
+</app-sidenav-bar>
+}

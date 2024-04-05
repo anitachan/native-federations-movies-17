@@ -1,4 +1,4 @@
-import { loadRemoteModule } from '@angular-architects/module-federation';
+import { loadRemoteModule } from '@angular-architects/native-federation';
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './ui/components/dashboard/dashboard.component';
 import { SidenavBar } from './ui/models/sidenav-bar.interface';
@@ -24,7 +24,6 @@ export const routes: Routes = [
     path: 'detail',
     loadChildren: () =>
       loadRemoteModule({
-        type: 'manifest',
         remoteName: 'app2-details',
         exposedModule: './Module',
       }).then((m) => m.UiModule),
@@ -34,7 +33,6 @@ export const routes: Routes = [
     path: 'favorites',
     loadChildren: () =>
       loadRemoteModule({
-        type: 'manifest',
         remoteName: 'app3-favorites',
         exposedModule: './Module',
       }).then((m) => m.UiModule),

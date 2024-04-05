@@ -1,0 +1,5 @@
+{
+  "app2-details": "http://localhost:4201/remoteEntry.json",
+  "app3-favorites": "http://localhost:4202/remoteEntry.json",
+  "app4-cast": "http://localhost:4203/remoteEntry.json"
+}

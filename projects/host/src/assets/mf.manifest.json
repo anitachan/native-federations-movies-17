@@ -1,5 +1,0 @@
-{
-  "app2-details": "http://localhost:4201/remoteEntry.js",
-  "app3-favorites": "http://localhost:4202/remoteEntry.js",
-  "app4-cast": "http://localhost:4203/remoteEntry.js"
-}

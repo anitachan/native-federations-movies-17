@@ -15,8 +15,8 @@ module.exports = {
     ],
   },
   transformIgnorePatterns: [
-    'node_modules/(?!.*\\.mjs$|@angular-architects/module-federation)',
-    '<rootDir>/../node_modules/(?!@angular-architects/module-federation)'
+    'node_modules/(?!.*\\.mjs$|@angular-architects/native-federation)',
+    '<rootDir>/../node_modules/(?!@angular-architects/native-federation)',
   ],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
     prefix: '<rootDir>/../../',

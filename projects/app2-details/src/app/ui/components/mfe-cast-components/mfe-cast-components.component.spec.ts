@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { loadRemoteModule } from '@angular-architects/module-federation';
+import { loadRemoteModule } from '@angular-architects/native-federation';
 import { ComponentRef } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Cast } from 'shared-lib';
 import { MfeCastComponentsComponent } from './mfe-cast-components.component';
 
-jest.mock('@angular-architects/module-federation', () => ({
+jest.mock('@angular-architects/native-federation', () => ({
   loadRemoteModule: jest.fn(() => Promise.resolve({})),
 }));
 
@@ -41,7 +41,6 @@ describe('MfeCastComponentsComponent', () => {
     await component.load();
 
     expect(loadRemoteModule).toHaveBeenCalledWith({
-      type: 'module',
       remoteEntry: 'http://localhost:4203/remoteEntry.js',
       exposedModule: './Component',
     });

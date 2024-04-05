@@ -1,4 +1,4 @@
-import { loadRemoteModule } from '@angular-architects/module-federation';
+import { loadRemoteModule } from '@angular-architects/native-federation';
 import { Component, ComponentRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { Cast } from 'shared-lib';
@@ -30,7 +30,6 @@ export class MfeCastComponentsComponent implements OnInit, OnDestroy {
 
   async load(): Promise<void> {
     const m = await loadRemoteModule({
-      type: 'module',
       remoteEntry: 'http://localhost:4203/remoteEntry.js',
       exposedModule: './Component',
     });

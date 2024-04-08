@@ -25,8 +25,8 @@ export const routes: Routes = [
     loadChildren: () =>
       loadRemoteModule({
         remoteName: 'app2-details',
-        exposedModule: './Module',
-      }).then((m) => m.UiModule),
+        exposedModule: './routes',
+      }).then((m) => m.routes),
   },
   // { path: 'search/:query', component: SearchComponent },
   {

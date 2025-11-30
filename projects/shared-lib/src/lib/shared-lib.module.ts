@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,9 +18,9 @@ import { PosterPipe } from './ui/pipes/poster.pipe';
 
 @NgModule({
   declarations: [SharedLibComponent, MoviesGridComponent, StarRatingComponent, PosterPipe, LoadingComponent],
+  exports: [SharedLibComponent, MoviesGridComponent, StarRatingComponent, PosterPipe],
   imports: [
     CommonModule,
-    HttpClientModule,
     RouterModule,
     MatIconModule,
     MatFormFieldModule,
@@ -31,7 +31,7 @@ import { PosterPipe } from './ui/pipes/poster.pipe';
     MatProgressSpinnerModule,
     InfiniteScrollModule,
   ],
-  exports: [SharedLibComponent, MoviesGridComponent, StarRatingComponent, PosterPipe],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class SharedLibModule {
   static forRoot(configuration: ISharedLibConfigurationModel): ModuleWithProviders<SharedLibModule> {

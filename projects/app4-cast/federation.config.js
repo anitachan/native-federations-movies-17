@@ -19,6 +19,6 @@ module.exports = withNativeFederation({
     // Add further packages you don't need at runtime
   ],
   features: {
-    ignoreUnusedDeps: true
-  }
+    ignoreUnusedDeps: true,
+  },
 });

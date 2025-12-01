@@ -2,11 +2,11 @@ import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { RouterModule } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { RouterLink, RouterModule } from '@angular/router';
 import { MockModule } from 'ng-mocks';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { ToolbarComponent } from './toolbar.component';
@@ -37,22 +37,18 @@ describe('ToolbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set router link home', async () => {
-    const button = await loader.getHarness(MatButtonHarness.with({ selector: '[data-test-selector="homeButton"]' }));
+  it('should set router link home', () => {
+    const debug = fixture.debugElement.query(By.css('[data-test-selector="homeButton"]'));
+    const routerLink = debug.injector.get(RouterLink);
 
-    const host = await button.host();
-    const linkAttribute = await host.getAttribute('ng-reflect-router-link');
-
-    expect(linkAttribute).toEqual('/home');
+    expect(routerLink.urlTree?.toString()).toEqual('/home');
   });
 
-  it('should set router link favorites', async () => {
-    const button = await loader.getHarness(MatButtonHarness.with({ selector: '[data-test-selector="favoritesButton"]' }));
+  it('should set router link favorites', () => {
+    const debug = fixture.debugElement.query(By.css('[data-test-selector="favoritesButton"]'));
+    const routerLink = debug.injector.get(RouterLink);
 
-    const host = await button.host();
-    const linkAttribute = await host.getAttribute('ng-reflect-router-link');
-
-    expect(linkAttribute).toEqual('/favorites');
+    expect(routerLink.urlTree?.toString()).toEqual('/favorites');
   });
 
   it('should emit sidenavEvent with false', () => {

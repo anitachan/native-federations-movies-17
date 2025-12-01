@@ -9,8 +9,6 @@ import { GetCastMovieService } from './infrastructure/driven-adapter/get-cast-mo
 import { CustomGetMovieService } from './infrastructure/driven-adapter/get-movie.service';
 import { GetVideosMovieService } from './infrastructure/driven-adapter/get-videos-movie.service';
 
-// Centralized providers so standalone components can be consumed remotely
-// without importing infrastructure directly from the UI layer.
 export const movieDetailProviders: Provider[] = [
   GetCastMovieUsecaseService,
   GetVideoMovieUsecaseService,

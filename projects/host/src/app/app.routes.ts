@@ -25,18 +25,6 @@ export const routes: Routes = [
   {
     path: 'home',
     component: DashboardComponent,
-    providers: [
-      importProvidersFrom(
-        SharedLibModule.forRoot({
-          infrastructures: [
-            {
-              gateway: GetMoviesGateway,
-              implementation: CustomGetMoviesService,
-            },
-          ],
-        })
-      ),
-    ],
   },
   {
     path: 'detail',

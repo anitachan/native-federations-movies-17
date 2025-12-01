@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
+import { MatError } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FIVE, ONE, ZERO } from '../../utils/constants/number.constants';
 
 @Component({
   selector: 'app-star-rating',
+  standalone: true,
   templateUrl: './star-rating.component.html',
   styleUrls: ['./star-rating.component.scss'],
+  imports: [CommonModule, MatIconButton, MatTooltip, MatIcon, MatError],
 })
 export class StarRatingComponent implements OnInit {
   @Input() rating: number = ZERO;
@@ -12,9 +19,7 @@ export class StarRatingComponent implements OnInit {
   @Input() color: string = 'accent';
   @Input() showVotes: boolean = false;
 
-  ratingArr: number[] = [];
-
-  constructor() {}
+  public ratingArr: number[] = [];
 
   ngOnInit(): void {
     this.rating = Math.round(this.rating);

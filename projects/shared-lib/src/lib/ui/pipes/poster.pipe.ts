@@ -1,8 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-  name: 'poster',
-})
+@Pipe({ name: 'poster', standalone: true })
 export class PosterPipe implements PipeTransform {
   transform(poster: string, url: string, resolution: string): string {
     if (poster) {

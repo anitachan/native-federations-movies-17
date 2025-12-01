@@ -191,9 +191,6 @@ describe('MovieDetailComponent', () => {
       declarations: [MovieDetailComponent, MockComponents(AccordionComponent, MfeCastComponentsComponent), MockPipe(PosterPipe)],
       imports: [MockModule(MatIconModule)],
       providers: [
-        { provide: GetMovieUsecaseService, useValue: mockGetMovieUsecaseService },
-        { provide: GetCastMovieUsecaseService, useValue: mockGetCastMovieUsecaseService },
-        { provide: GetVideoMovieUsecaseService, useValue: mockGetVideoMovieUsecaseService },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -205,7 +202,17 @@ describe('MovieDetailComponent', () => {
           },
         },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(MovieDetailComponent, {
+        set: {
+          providers: [
+            { provide: GetMovieUsecaseService, useValue: mockGetMovieUsecaseService },
+            { provide: GetCastMovieUsecaseService, useValue: mockGetCastMovieUsecaseService },
+            { provide: GetVideoMovieUsecaseService, useValue: mockGetVideoMovieUsecaseService },
+          ],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(MovieDetailComponent);
     component = fixture.componentInstance;

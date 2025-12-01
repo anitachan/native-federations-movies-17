@@ -1,4 +1,5 @@
-<div class="movie-container" *ngIf="movieData$ | async as movieDetail">
+@if (movieData$ | async; as movieDetail) {
+<div class="movie-container">
   <div class="mat-display-2">{{ movieDetail.movie.title }}</div>
   <div class="movie-detail">
     <div
@@ -21,3 +22,4 @@
     <app-mfe-cast-components [cast]="movieDetail.cast" (actor)="getSelectActor($event)"></app-mfe-cast-components>
   </div>
 </div>
+}

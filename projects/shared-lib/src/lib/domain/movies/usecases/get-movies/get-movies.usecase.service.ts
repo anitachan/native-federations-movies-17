@@ -3,7 +3,9 @@ import { Observable, catchError, of } from 'rxjs';
 import { GetMoviesGateway } from '../../gateway/get-movies.gateway';
 import { Movie } from '../../models/movies.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GetMoviesUsecaseService {
   constructor(private getMoviesGateway: GetMoviesGateway) {}
 

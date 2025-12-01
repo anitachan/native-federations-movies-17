@@ -5,6 +5,7 @@ import { Cast } from 'shared-lib';
 
 @Component({
   selector: 'app-mfe-cast-components',
+  standalone: true,
   templateUrl: './mfe-cast-components.component.html',
   styleUrls: ['./mfe-cast-components.component.scss'],
 })

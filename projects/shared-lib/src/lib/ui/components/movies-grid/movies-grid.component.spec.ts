@@ -5,6 +5,7 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatGridListHarness, MatGridTileHarness } from '@angular/material/grid-list/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponents, MockPipe } from 'ng-mocks';
 import { of } from 'rxjs';
@@ -89,10 +90,21 @@ describe('MoviesGridComponent', () => {
   };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MoviesGridComponent, MockComponents(StarRatingComponent, LoadingComponent)],
-      providers: [{ provide: GetMoviesUsecaseService, useValue: mockGetMoviesUsecaseService }],
-      imports: [MatGridListModule, RouterTestingModule, MockPipe(PosterPipe)],
-    }).compileComponents();
+      //providers: [{ provide: GetMoviesUsecaseService, useValue: mockGetMoviesUsecaseService }],
+      imports: [
+        MoviesGridComponent,
+        MockComponents(StarRatingComponent, LoadingComponent),
+        MatGridListModule,
+        RouterTestingModule,
+        MockPipe(PosterPipe),
+      ],
+    })
+      .overrideComponent(MoviesGridComponent, {
+        set: {
+          providers: [{ provide: GetMoviesUsecaseService, useValue: mockGetMoviesUsecaseService }],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(MoviesGridComponent);
     component = fixture.componentInstance;
@@ -111,7 +123,9 @@ describe('MoviesGridComponent', () => {
   });
 
   it('should set the data of the movie', async () => {
-    component.movies$ = of(mockMovies);
+    component.listMovies = mockMovies;
+    fixture.detectChanges();
+    await fixture.whenStable();
 
     const grids = await loader.getAllHarnesses(MatGridTileHarness);
     expect(grids.length).toBe(mockMovies.length);
@@ -122,19 +136,22 @@ describe('MoviesGridComponent', () => {
   });
 
   it('should redirect to movie detail with id', async () => {
-    component.movies$ = of(mockMovies);
+    const router = TestBed.inject(Router);
+    const navigateSpy = jest.spyOn(router, 'navigate');
+
+    component.listMovies = mockMovies;
+    fixture.detectChanges();
+    await fixture.whenStable();
 
     const grids = await loader.getAllHarnesses(MatGridTileHarness);
 
-    expect(
-      await parallel(() =>
-        grids.map(async (grid) => {
-          const button = await grid.getHarness(MatButtonHarness);
-          const host = await button.host();
-          return await host.getAttribute('ng-reflect-router-link');
-        })
-      )
-    ).toEqual(mockMovies.map((movie) => `/detail,${movie.id}`));
+    await parallel(() =>
+      grids.map(async (grid, index) => {
+        const button = await grid.getHarness(MatButtonHarness);
+        await button.click();
+        expect(navigateSpy).toHaveBeenCalledWith(['/detail', mockMovies[index].id]);
+      })
+    );
   });
 
   it('should set new movies and increase the page', () => {

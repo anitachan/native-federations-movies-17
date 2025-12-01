@@ -16,7 +16,7 @@ describe('MfeCastComponentsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MfeCastComponentsComponent],
+      imports: [MfeCastComponentsComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MfeCastComponentsComponent);

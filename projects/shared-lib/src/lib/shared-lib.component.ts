@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-shared-lib',
+  standalone: true,
   template: ` <p>shared-lib works!</p> `,
   styles: [],
 })

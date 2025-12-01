@@ -4,18 +4,12 @@ module.exports = withNativeFederation({
   name: 'app3-favorites',
 
   exposes: {
-    './Module': './projects/app3-favorites/src/app/ui/ui.module.ts',
+    './routes': '././projects/app3-favorites/src/app/app.routes.ts',
   },
 
   shared: {
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
 
-  skip: [
-    'rxjs/ajax',
-    'rxjs/fetch',
-    'rxjs/testing',
-    'rxjs/webSocket',
-    // Add further packages you don't need at runtime
-  ],
+  skip: ['rxjs/ajax', 'rxjs/fetch', 'rxjs/testing', 'rxjs/webSocket'],
 });

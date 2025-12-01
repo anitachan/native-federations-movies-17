@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Cast, Favorite, Genre, MovieDetail, VideoItem } from 'shared-lib';
+import { combineLatest, map, Observable } from 'rxjs';
+import { Cast, Favorite, Genre, MovieDetail, PosterPipe, VideoItem } from 'shared-lib';
 import { environment } from '../../../../environments/environment';
 import { GetCastMovieUsecaseService } from '../../../domain/cast/usecases/get-cast-movie/get-cast-movie.usecase.service';
 import { GetMovieUsecaseService } from '../../../domain/movie/usecases/get-movie/get-movie.usecase.service';
 import { GetVideoMovieUsecaseService } from '../../../domain/videos/usecases/get-video-movie/get-video-movie.usecase.service';
+import { AccordionComponent } from '../accordion/accordion.component';
+import { MfeCastComponentsComponent } from '../mfe-cast-components/mfe-cast-components.component';
 
 @Component({
   selector: 'app-movie-detail',
+  standalone: true,
+  imports: [CommonModule, MatIconModule, AccordionComponent, MfeCastComponentsComponent, PosterPipe],
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.scss'],
 })
@@ -26,12 +31,17 @@ export class MovieDetailComponent implements OnInit {
   selectedActor = '';
   urlImage: string = environment.tmdbImage;
 
-  constructor(
-    private getMovieUsecaseService: GetMovieUsecaseService,
-    private activatedRoute: ActivatedRoute,
-    private getCastMovieUsecaseService: GetCastMovieUsecaseService,
-    private getVideoMovieUsecaseService: GetVideoMovieUsecaseService
-  ) {}
+  private activatedRoute = inject(ActivatedRoute);
+  private getMovieUsecaseService = inject(GetMovieUsecaseService);
+  private getCastMovieUsecaseService = inject(GetCastMovieUsecaseService);
+  private getVideoMovieUsecaseService = inject(GetVideoMovieUsecaseService);
+
+  // constructor(
+  //   private activatedRoute: ActivatedRoute,
+  //   private getMovieUsecaseService: GetMovieUsecaseService,
+  //   private getCastMovieUsecaseService: GetCastMovieUsecaseService,
+  //   private getVideoMovieUsecaseService: GetVideoMovieUsecaseService
+  // ) {}
 
   ngOnInit(): void {
     this.movieId = this.activatedRoute.snapshot.paramMap.get('id');

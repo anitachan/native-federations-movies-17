@@ -10,14 +10,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedLibComponent } from './shared-lib.component';
-import { DEFAULT_CONFIGURATION, DEFAULT_PROVIDERS, ENDPOINTS_CONFIG, ISharedLibConfigurationModel } from './shared-lib.configuration';
+import { DEFAULT_CONFIGURATION, buildSharedLibProviders, ENDPOINTS_CONFIG, ISharedLibConfigurationModel } from './shared-lib.configuration';
 import { LoadingComponent } from './ui/components/loading/loading.component';
 import { MoviesGridComponent } from './ui/components/movies-grid/movies-grid.component';
 import { StarRatingComponent } from './ui/components/star-rating/star-rating.component';
 import { PosterPipe } from './ui/pipes/poster.pipe';
 
 @NgModule({
-  declarations: [SharedLibComponent, MoviesGridComponent, StarRatingComponent, PosterPipe, LoadingComponent],
   exports: [SharedLibComponent, MoviesGridComponent, StarRatingComponent, PosterPipe],
   imports: [
     CommonModule,
@@ -30,6 +29,11 @@ import { PosterPipe } from './ui/pipes/poster.pipe';
     MatIconModule,
     MatProgressSpinnerModule,
     InfiniteScrollModule,
+    SharedLibComponent,
+    MoviesGridComponent,
+    StarRatingComponent,
+    PosterPipe,
+    LoadingComponent,
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })
@@ -45,13 +49,7 @@ export class SharedLibModule {
     }
     return {
       ngModule: SharedLibModule,
-      providers: [
-        ...DEFAULT_PROVIDERS,
-        ...conf.infrastructures.map((x) => {
-          return { provide: x.gateway, useClass: x.implementation };
-        }),
-        { provide: ENDPOINTS_CONFIG, useValue: conf.endpoints },
-      ],
+      providers: [...buildSharedLibProviders(conf)],
     };
   }
 }

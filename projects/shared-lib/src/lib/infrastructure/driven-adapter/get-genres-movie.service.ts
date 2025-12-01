@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GetGenresMovieGateway } from '../../domain/movies/gateway/get-genres-movie.gateway';
 import { Genres } from '../../domain/movies/models/movie-detail.interface';
@@ -13,8 +13,10 @@ import {
   providedIn: 'root',
 })
 export class GetGenresMovieService extends GetGenresMovieGateway {
-  constructor(private httpClient: HttpClient, @Inject(GET_GENRES_MOVIE_SERVICE_ENDPOINTS) private endpoints: GetGenresMovieServiceEndpointsConfig) {
-    super(httpClient);
+  private endpoints = inject<GetGenresMovieServiceEndpointsConfig>(GET_GENRES_MOVIE_SERVICE_ENDPOINTS);
+
+  constructor() {
+    super(inject(HttpClient));
   }
 
   getGenresMovie(): Observable<Genres> {

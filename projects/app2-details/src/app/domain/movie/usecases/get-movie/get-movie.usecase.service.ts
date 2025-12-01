@@ -4,7 +4,9 @@ import { Observable, catchError, of } from 'rxjs';
 import { MovieDetail } from 'shared-lib';
 import { GetMovieGateway } from '../../gateway/get-movie.gateway';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GetMovieUsecaseService {
   constructor(private getMovieGateway: GetMovieGateway) {}
 

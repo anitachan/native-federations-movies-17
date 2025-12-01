@@ -1,9 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Cast } from 'shared-lib';
+import { MatCardModule } from '@angular/material/card';
+import { Cast, PosterPipe } from 'shared-lib';
 import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-cast',
+  standalone: true,
+  imports: [CommonModule, MatCardModule, PosterPipe],
   templateUrl: './cast.component.html',
   styleUrls: ['./cast.component.scss'],
 })

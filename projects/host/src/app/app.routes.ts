@@ -1,5 +1,8 @@
 import { loadRemoteModule } from '@angular-architects/native-federation';
+import { importProvidersFrom } from '@angular/core';
 import { Routes } from '@angular/router';
+import { GetMoviesGateway, SharedLibModule } from 'shared-lib';
+import { CustomGetMoviesService } from './infrastructure/driven-adapter/custom-get-movies.service';
 import { DashboardComponent } from './ui/components/dashboard/dashboard.component';
 import { SidenavBar } from './ui/models/sidenav-bar.interface';
 
@@ -19,23 +22,30 @@ export const sidenavRoutes: SidenavBar[] = [
 ];
 
 export const routes: Routes = [
-  { path: 'home', component: DashboardComponent },
+  {
+    path: 'home',
+    component: DashboardComponent,
+    providers: [
+      importProvidersFrom(
+        SharedLibModule.forRoot({
+          infrastructures: [
+            {
+              gateway: GetMoviesGateway,
+              implementation: CustomGetMoviesService,
+            },
+          ],
+        })
+      ),
+    ],
+  },
   {
     path: 'detail',
-    loadChildren: () =>
-      loadRemoteModule({
-        remoteName: 'app2-details',
-        exposedModule: './Module',
-      }).then((m) => m.UiModule),
+    loadChildren: () => loadRemoteModule('app2-details', './routes').then((m) => m.routes),
   },
   // { path: 'search/:query', component: SearchComponent },
   {
     path: 'favorites',
-    loadChildren: () =>
-      loadRemoteModule({
-        remoteName: 'app3-favorites',
-        exposedModule: './Module',
-      }).then((m) => m.UiModule),
+    loadChildren: () => loadRemoteModule('app3-favorites', './routes').then((m) => m.routes),
   },
   { path: '**', component: DashboardComponent },
 ];

@@ -18,8 +18,7 @@ describe('StarRatingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [StarRatingComponent],
-      imports: [MatIconModule, MatTooltipModule, MatButtonModule],
+      imports: [StarRatingComponent, MatIconModule, MatTooltipModule, MatButtonModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(StarRatingComponent);

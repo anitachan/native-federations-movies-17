@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GetMoviesGateway } from '../../domain/movies/gateway/get-movies.gateway';
 import { Movie } from '../../domain/movies/models/movies.interface';
@@ -9,8 +9,11 @@ import { GET_MOVIES_SERVICE_ENDPOINTS, GetMoviesServiceEndpointsConfig, GetMovie
   providedIn: 'root',
 })
 export class GetMoviesService extends GetMoviesGateway {
-  constructor(private httpClient: HttpClient, @Inject(GET_MOVIES_SERVICE_ENDPOINTS) private endpoints: GetMoviesServiceEndpointsConfig) {
-    super(httpClient);
+  private httpClient = inject(HttpClient);
+  private endpoints = inject<GetMoviesServiceEndpointsConfig>(GET_MOVIES_SERVICE_ENDPOINTS);
+
+  constructor() {
+    super(inject(HttpClient));
   }
 
   getMovies(page?: number): Observable<Movie[]> {

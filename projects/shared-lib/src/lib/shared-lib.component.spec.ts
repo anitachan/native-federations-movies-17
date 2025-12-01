@@ -8,7 +8,7 @@ describe('SharedLibComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SharedLibComponent],
+      imports: [SharedLibComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SharedLibComponent);

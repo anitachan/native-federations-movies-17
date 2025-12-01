@@ -11,9 +11,11 @@ module.exports = {
       {
         tsconfig: '<rootDir>/tsconfig.spec.json',
         stringifyContentPathRegex: '\\.(html|svg)$',
+        useESM: true,
       },
     ],
   },
+  extensionsToTreatAsEsm: ['.ts'],
   transformIgnorePatterns: [
     'node_modules/(?!.*\\.mjs$|@angular-architects/native-federation)',
     '<rootDir>/../node_modules/(?!@angular-architects/native-federation)',

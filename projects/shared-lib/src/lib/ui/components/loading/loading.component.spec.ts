@@ -14,8 +14,7 @@ describe('LoadingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LoadingComponent],
-      imports: [MatProgressSpinnerModule],
+      imports: [LoadingComponent, MatProgressSpinnerModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoadingComponent);

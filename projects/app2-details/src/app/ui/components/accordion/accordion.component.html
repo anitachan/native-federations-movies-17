@@ -19,7 +19,9 @@
       <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-chip-listbox aria-label="Fish selection">
-      <mat-chip-option *ngFor="let genre of genres"> {{ genre.name }}</mat-chip-option>
+      @for(genre of genres; track genre){
+      <mat-chip-option> {{ genre.name }}</mat-chip-option>
+      }
     </mat-chip-listbox>
   </mat-expansion-panel>
   <mat-expansion-panel [expanded]="true" data-test-selector="expansionHomepage">

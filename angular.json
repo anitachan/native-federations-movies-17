@@ -44,7 +44,7 @@
 					}
 				},
 				"esbuild": {
-					"builder": "@angular-devkit/build-angular:application",
+					"builder": "@angular/build:application",
 					"options": {
 						"outputPath": "dist/host",
 						"index": "projects/host/src/index.html",
@@ -160,7 +160,7 @@
 					}
 				},
 				"esbuild": {
-					"builder": "@angular-devkit/build-angular:application",
+					"builder": "@angular/build:application",
 					"options": {
 						"outputPath": "dist/app2-details",
 						"index": "projects/app2-details/src/index.html",
@@ -269,7 +269,7 @@
 					}
 				},
 				"esbuild": {
-					"builder": "@angular-devkit/build-angular:application",
+					"builder": "@angular/build:application",
 					"options": {
 						"outputPath": "dist/app3-favorites",
 						"index": "projects/app3-favorites/src/index.html",
@@ -345,7 +345,7 @@
 			"prefix": "lib",
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:ng-packagr",
+					"builder": "@angular/build:ng-packagr",
 					"options": {
 						"project": "projects/shared-lib/ng-package.json"
 					},
@@ -402,7 +402,7 @@
 					}
 				},
 				"esbuild": {
-					"builder": "@angular-devkit/build-angular:application",
+					"builder": "@angular/build:application",
 					"options": {
 						"outputPath": "dist/app4-cast",
 						"index": "projects/app4-cast/src/index.html",

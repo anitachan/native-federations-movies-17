@@ -13,6 +13,9 @@ module.exports = withNativeFederation({
     'rxjs/webSocket',
     // Add further packages you don't need at runtime
     /^@eslint/
-  ]
+  ],
+  features: {
+    ignoreUnusedDeps: true
+  }
 
 });
